@@ -7,9 +7,14 @@ import java.sql.Connection;
 
 public abstract class AbstractDaoImpl {
 
-    @SneakyThrows
+    private Connection connection;
+
     protected Connection getConnection() {
-        return ConnectionPool.getInstance().getConnection();
+        return this.connection;
+    }
+
+    public void setConnection(Connection connection) {
+        this.connection = connection;
     }
 
     protected void close(AutoCloseable closeable) {

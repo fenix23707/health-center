@@ -18,12 +18,10 @@ public class UserDaoImpl extends AbstractDaoImpl implements UserDao {
     public List<User> findAll() {
         String sql = "SELECT id, login, role FROM users";
         List<User> users = new ArrayList<>();
-        Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
-            connection = getConnection();
-            statement = connection.prepareStatement(sql);
+            statement = getConnection().prepareStatement(sql);
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 User user = new User();
@@ -35,7 +33,6 @@ public class UserDaoImpl extends AbstractDaoImpl implements UserDao {
         } finally {
             close(resultSet);
             close(statement);
-            close(connection);
         }
         return users;
     }
