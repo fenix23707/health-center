@@ -11,9 +11,12 @@ repositories {
 }
 
 dependencies {
+    // tomcat
+    implementation 'org.apache.tomcat:tomcat-servlet-api:10.0.10'
+
+
     // db
     implementation 'org.postgresql:postgresql:42.4.0'
-
 
     // lombok
     compileOnly 'org.projectlombok:lombok:1.18.24'
