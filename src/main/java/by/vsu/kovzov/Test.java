@@ -2,6 +2,8 @@ package by.vsu.kovzov;
 
 import by.vsu.kovzov.dao.UserDao;
 import by.vsu.kovzov.dao.postgres.UserDaoImpl;
+import by.vsu.kovzov.utils.factories.ServiceFactory;
+import by.vsu.kovzov.utils.factories.ServiceFactoryImpl;
 import by.vsu.kovzov.utils.pool.ConnectionPool;
 import lombok.SneakyThrows;
 
@@ -10,10 +12,11 @@ public class Test {
     @SneakyThrows
     public static void main(String[] args) {
         init();
-        System.out.println("init");
-        UserDao userDao = new UserDaoImpl();
-        System.out.println(userDao.findAll());
-        System.out.println("closed");
+
+        ServiceFactory serviceFactory = new ServiceFactoryImpl();
+        System.out.println(serviceFactory.getUserService().getAll());
+        serviceFactory.close();
+
         destroy();
         System.out.println("destroyed");
     }
