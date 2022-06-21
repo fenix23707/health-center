@@ -64,7 +64,7 @@ public final class ConnectionPool {
         }
     }
 
-    public ConnectionWrapper getConnection() throws ConnectionPoolException {
+    public Connection getConnection() throws ConnectionPoolException {
         Connection connection = null;
         while (connection == null) {
             try {
@@ -85,7 +85,7 @@ public final class ConnectionPool {
             }
         }
         usedConnections.add(connection);
-        return new ConnectionWrapper(connection);
+        return connection;
     }
 
     void freeConnection(Connection connection) {
@@ -99,12 +99,9 @@ public final class ConnectionPool {
         }
     }
 
-    private Connection newConnection() throws ConnectionPoolException {
-        try {
-            return DriverManager.getConnection(jdbcUrl, user, password);
-        } catch (SQLException ex) {
-            throw new ConnectionPoolException(ex);
-        }
+    @SneakyThrows
+    private Connection newConnection()  {
+        return new ConnectionWrapper(DriverManager.getConnection(jdbcUrl, user, password));
     }
 
     public void destroy() {
