@@ -10,3 +10,8 @@ CREATE TABLE users
     role     smallint     NOT NULL DEFAULT 0,
     status   smallint     NOT NULL DEFAULT 0
 );
+
+SELECT * FROM users;
+
+INSERT INTO users(login, password)
+VALUES ('admin', 'admin');

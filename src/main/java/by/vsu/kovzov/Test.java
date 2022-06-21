@@ -1,5 +1,7 @@
 package by.vsu.kovzov;
 
+import by.vsu.kovzov.dao.UserDao;
+import by.vsu.kovzov.dao.postgres.UserDaoImpl;
 import by.vsu.kovzov.pool.ConnectionPool;
 import lombok.SneakyThrows;
 
@@ -11,9 +13,8 @@ public class Test {
     public static void main(String[] args) {
         init();
         System.out.println("init");
-        Connection connection = ConnectionPool.getInstance().getConnection();
-        System.out.println("connected");
-        connection.close();
+        UserDao userDao = new UserDaoImpl();
+        System.out.println(userDao.findAll());
         System.out.println("closed");
         destroy();
         System.out.println("destroyed");
