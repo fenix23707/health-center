@@ -1,7 +1,6 @@
 package by.vsu.kovzov.dao.postgres;
 
-import by.vsu.kovzov.pool.ConnectionPool;
-import lombok.SneakyThrows;
+import by.vsu.kovzov.utils.pool.ConnectionPool;
 
 import java.sql.Connection;
 

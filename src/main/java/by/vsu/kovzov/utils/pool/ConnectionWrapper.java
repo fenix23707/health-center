@@ -1,4 +1,4 @@
-package by.vsu.kovzov.pool;
+package by.vsu.kovzov.utils.pool;
 
 import java.sql.*;
 import java.util.Map;

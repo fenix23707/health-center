@@ -1,4 +1,4 @@
-package by.vsu.kovzov.pool;
+package by.vsu.kovzov.utils.pool;
 
 /**
  * Бросается при возникновении проблем в ConnectionPool
