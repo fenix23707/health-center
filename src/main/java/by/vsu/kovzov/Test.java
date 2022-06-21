@@ -10,9 +10,13 @@ public class Test {
     @SneakyThrows
     public static void main(String[] args) {
         init();
+        System.out.println("init");
         Connection connection = ConnectionPool.getInstance().getConnection();
+        System.out.println("connected");
         connection.close();
+        System.out.println("closed");
         destroy();
+        System.out.println("destroyed");
     }
 
     @SneakyThrows

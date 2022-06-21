@@ -11,8 +11,6 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.ConcurrentSkipListSet;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public final class ConnectionPool {
     private static final ConnectionPool INSTANCE = new ConnectionPool();
@@ -30,8 +28,6 @@ public final class ConnectionPool {
     private Queue<Connection> freeConnections = new ConcurrentLinkedDeque<>();
 
     private Set<Connection> usedConnections = new ConcurrentSkipListSet<>();
-
-    private static ExecutorService closer = Executors.newSingleThreadExecutor();
 
     private ConnectionPool() {
     }
@@ -100,7 +96,7 @@ public final class ConnectionPool {
     }
 
     @SneakyThrows
-    private Connection newConnection()  {
+    private Connection newConnection() {
         return new ConnectionWrapper(DriverManager.getConnection(jdbcUrl, user, password));
     }
 
@@ -118,18 +114,14 @@ public final class ConnectionPool {
     }
 
     private void close(Connection connection) {
-        closer.execute(() -> {
-            synchronized (connection) {
-                try {
-                    connection.rollback();
-                } catch (Exception e) {
-                }
-                try {
-                    ((ConnectionWrapper) connection).getConnection().close();
-                } catch (Exception e) {
-                }
-            }
-        });
+        synchronized (connection) {
+            try {
+                connection.rollback();
+            } catch (Exception e) {}
+            try {
+                ((ConnectionWrapper) connection).getConnection().close();
+            } catch (Exception e) {}
+        }
     }
 
 }
