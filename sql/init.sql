@@ -1,4 +1,7 @@
 DROP TABLE users;
+DROP TABLE doctors;
+DROP TABLE persons;
+DROP TABLE specializations;
 
 CREATE TABLE users
 (
@@ -11,14 +14,14 @@ CREATE TABLE users
 
 CREATE TABLE specializations
 (
-    id        serial       NOT NULL,
+    PRIMARY KEY (id),
+    id        serial,
     name      VARCHAR(255) NOT NULL UNIQUE,
-    wage_rate FLOAT        NOT NULL UNIQUE,
-    narrow    BOOLEAN      NOT NULL,
-    CONSTRAINT specializations_pk PRIMARY KEY ("id")
+    wage_rate FLOAT        NOT NULL,
+    narrow    BOOLEAN      NOT NULL DEFAULT FALSE
 );
 
-CREATE TABLE doctor
+CREATE TABLE doctors
 (
     PRIMARY KEY (id),
     id                  serial,
@@ -29,7 +32,7 @@ CREATE TABLE doctor
     "branch_id"         integer NOT NULL
 );
 
-CREATE TABLE person
+CREATE TABLE persons
 (
     PRIMARY KEY (id),
     id           serial,
@@ -40,11 +43,17 @@ CREATE TABLE person
     "dob"        DATE         NOT NULL
 );
 
-ALTER TABLE "doctor"
-    ADD CONSTRAINT "doctor_fk0" FOREIGN KEY ("person_id") REFERENCES "person" ("id");
-ALTER TABLE "doctor"
+ALTER TABLE doctors
+    ADD CONSTRAINT "doctor_fk0" FOREIGN KEY ("person_id") REFERENCES persons ("id");
+ALTER TABLE doctors
     ADD CONSTRAINT "doctor_fk1" FOREIGN KEY ("specialization_id") REFERENCES "specializations" ("id");
 
 
 INSERT INTO users(login, password)
 VALUES ('admin', 'admin');
+
+INSERT INTO specializations(name, wage_rate, narrow)
+VALUES ('Хирург', 4000, FALSE),
+       ('Фельдшер', 2400, FALSE),
+       ('Фармацевт', 2500, FALSE),
+       ('Неонатолога', 3230, TRUE);
