@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class UserDaoImpl extends AbstractDaoImpl implements UserDao {
 
@@ -35,5 +36,31 @@ public class UserDaoImpl extends AbstractDaoImpl implements UserDao {
             close(statement);
         }
         return users;
+    }
+
+    @Override
+    @SneakyThrows
+    public Optional<User> findByLoginAndPassword(String login, String password) {
+        String sql = "SELECT id, login, role FROM users WHERE login = ? AND password = ?";
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        Optional<User> optionalUser = Optional.empty();
+        try {
+            statement = getConnection().prepareStatement(sql);
+            statement.setString(1, login);
+            statement.setString(2, password);
+            resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                User user = new User();
+                user.setRole(User.Role.values()[resultSet.getInt("role")]);
+                user.setId(resultSet.getLong("id"));
+                user.setLogin(login);
+                optionalUser = Optional.of(user);
+            }
+        } finally {
+            close(resultSet);
+            close(statement);
+        }
+        return optionalUser;
     }
 }

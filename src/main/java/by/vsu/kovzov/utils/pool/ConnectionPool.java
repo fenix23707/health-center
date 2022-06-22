@@ -60,7 +60,7 @@ public final class ConnectionPool {
         }
     }
 
-    public Connection getConnection() throws ConnectionPoolException {
+    public synchronized Connection getConnection() throws ConnectionPoolException {
         Connection connection = null;
         while (connection == null) {
             try {

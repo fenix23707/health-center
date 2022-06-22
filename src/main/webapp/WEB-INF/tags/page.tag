@@ -15,13 +15,19 @@
 
 </head>
 <body>
-<div class="rightSide">
-    <c:if test="${not empty session_user}">
-        <form  action="${logoutUrl}" method="get">
-            <button class="logoutButton" type="submit">Выйти</button>
-        </form>
-    </c:if>
-</div>
+<header class="rightSide">
+    <c:choose>
+        <c:when test="${not empty user}">
+            <c:url var="logoutUrl" value="/logout.html"/>
+            ${user.login}&nbsp;&mdash; <a href="${logoutUrl}">выйти</a>
+        </c:when>
+        <c:otherwise>
+            <c:url var="loginFormUrl" value="/login-form.html"/>
+            <a href="${loginFormUrl}">войти</a>
+        </c:otherwise>
+    </c:choose>
+</header>
+
 <div class="content">
     <h1>${title}</h1>
 

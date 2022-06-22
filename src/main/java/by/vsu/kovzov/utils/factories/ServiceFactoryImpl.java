@@ -2,8 +2,10 @@ package by.vsu.kovzov.utils.factories;
 
 import by.vsu.kovzov.dao.UserDao;
 import by.vsu.kovzov.dao.postgres.UserDaoImpl;
+import by.vsu.kovzov.services.AuthService;
 import by.vsu.kovzov.services.Transaction;
 import by.vsu.kovzov.services.UserService;
+import by.vsu.kovzov.services.impl.AuthServiceImpl;
 import by.vsu.kovzov.services.impl.TransactionImpl;
 import by.vsu.kovzov.services.impl.UserServiceImpl;
 import by.vsu.kovzov.utils.pool.ConnectionPool;
@@ -19,6 +21,7 @@ public class ServiceFactoryImpl implements ServiceFactory{
     private UserDao userDao = null;
 
     private UserService userService = null;
+    private AuthService authService = null;
 
     @Override
     public UserService getUserService() {
@@ -27,6 +30,15 @@ public class ServiceFactoryImpl implements ServiceFactory{
         }
 
         return userService;
+    }
+
+    @Override
+    public AuthService getAuthService() {
+        if (authService == null) {
+            authService = new AuthServiceImpl(getUserDao());
+        }
+
+        return authService;
     }
 
     protected UserDao getUserDao() {
