@@ -5,9 +5,11 @@ import by.vsu.kovzov.dao.UserDao;
 import by.vsu.kovzov.dao.postgres.SpecializationDaoImpl;
 import by.vsu.kovzov.dao.postgres.UserDaoImpl;
 import by.vsu.kovzov.services.AuthService;
+import by.vsu.kovzov.services.SpecializationService;
 import by.vsu.kovzov.services.Transaction;
 import by.vsu.kovzov.services.UserService;
 import by.vsu.kovzov.services.impl.AuthServiceImpl;
+import by.vsu.kovzov.services.impl.SpecializationServiceImpl;
 import by.vsu.kovzov.services.impl.TransactionImpl;
 import by.vsu.kovzov.services.impl.UserServiceImpl;
 import by.vsu.kovzov.utils.pool.ConnectionPool;
@@ -25,6 +27,7 @@ public class ServiceFactoryImpl implements ServiceFactory{
 
     private UserService userService = null;
     private AuthService authService = null;
+    private SpecializationService specializationService = null;
 
     @Override
     public UserService getUserService() {
@@ -46,6 +49,17 @@ public class ServiceFactoryImpl implements ServiceFactory{
         }
 
         return authService;
+    }
+
+    @Override
+    public SpecializationService getSpecializationService() {
+        if (specializationService == null) {
+            SpecializationServiceImpl specializationServiceImpl = new SpecializationServiceImpl(getSpecializationDao());
+            specializationServiceImpl.setTransaction(getTransaction());
+            specializationService = specializationServiceImpl;
+        }
+
+        return specializationService;
     }
 
     protected UserDao getUserDao() {
