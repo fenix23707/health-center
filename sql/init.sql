@@ -21,17 +21,6 @@ CREATE TABLE specializations
     narrow    BOOLEAN      NOT NULL DEFAULT FALSE
 );
 
-CREATE TABLE doctors
-(
-    PRIMARY KEY (id),
-    id                  serial,
-    "employment_date"   DATE    NOT NULL,
-    "salary"            FLOAT   NOT NULL,
-    "person_id"         integer NOT NULL,
-    "specialization_id" integer NOT NULL,
-    "branch_id"         integer NOT NULL
-);
-
 CREATE TABLE persons
 (
     PRIMARY KEY (id),
@@ -43,10 +32,19 @@ CREATE TABLE persons
     "dob"        DATE         NOT NULL
 );
 
+CREATE TABLE doctors
+(
+    PRIMARY KEY (id),
+    id                  serial,
+    "employment_date"   DATE    NOT NULL,
+    "salary"            FLOAT   NOT NULL,
+    "specialization_id" integer NOT NULL,
+    "branch_id"         integer NOT NULL
+) inherits (persons);
+
+
 ALTER TABLE doctors
-    ADD CONSTRAINT "doctor_fk0" FOREIGN KEY ("person_id") REFERENCES persons ("id");
-ALTER TABLE doctors
-    ADD CONSTRAINT "doctor_fk1" FOREIGN KEY ("specialization_id") REFERENCES "specializations" ("id");
+    ADD CONSTRAINT "doctor_specialization_fk" FOREIGN KEY ("specialization_id") REFERENCES "specializations" ("id");
 
 
 INSERT INTO users(login, password)
@@ -57,3 +55,6 @@ VALUES ('Хирург', 4000, FALSE),
        ('Фельдшер', 2400, FALSE),
        ('Фармацевт', 2500, FALSE),
        ('Неонатолога', 3230, TRUE);
+
+
+SELECT * from doctors;
