@@ -1,17 +1,13 @@
 package by.vsu.kovzov.utils.factories;
 
+import by.vsu.kovzov.dao.DoctorDao;
 import by.vsu.kovzov.dao.SpecializationDao;
 import by.vsu.kovzov.dao.UserDao;
+import by.vsu.kovzov.dao.postgres.DoctorDaoImpl;
 import by.vsu.kovzov.dao.postgres.SpecializationDaoImpl;
 import by.vsu.kovzov.dao.postgres.UserDaoImpl;
-import by.vsu.kovzov.services.AuthService;
-import by.vsu.kovzov.services.SpecializationService;
-import by.vsu.kovzov.services.Transaction;
-import by.vsu.kovzov.services.UserService;
-import by.vsu.kovzov.services.impl.AuthServiceImpl;
-import by.vsu.kovzov.services.impl.SpecializationServiceImpl;
-import by.vsu.kovzov.services.impl.TransactionImpl;
-import by.vsu.kovzov.services.impl.UserServiceImpl;
+import by.vsu.kovzov.services.*;
+import by.vsu.kovzov.services.impl.*;
 import by.vsu.kovzov.utils.pool.ConnectionPool;
 import lombok.SneakyThrows;
 
@@ -23,10 +19,12 @@ public class ServiceFactoryImpl implements ServiceFactory{
     private Transaction transaction = null;
 
     private UserDao userDao = null;
+    private DoctorDao doctorDao = null;
     private SpecializationDao specializationDao = null;
 
     private UserService userService = null;
     private AuthService authService = null;
+    private DoctorService doctorService = null;
     private SpecializationService specializationService = null;
 
     @Override
@@ -52,9 +50,22 @@ public class ServiceFactoryImpl implements ServiceFactory{
     }
 
     @Override
+    public DoctorService getDoctorService() {
+        if (doctorService == null) {
+            DoctorServiceImpl doctorServiceImpl = new DoctorServiceImpl(getDoctorDao());
+            doctorServiceImpl.setTransaction(getTransaction());
+            doctorService = doctorServiceImpl;
+        }
+        return doctorService;
+    }
+
+    @Override
     public SpecializationService getSpecializationService() {
         if (specializationService == null) {
-            SpecializationServiceImpl specializationServiceImpl = new SpecializationServiceImpl(getSpecializationDao());
+            SpecializationServiceImpl specializationServiceImpl = new SpecializationServiceImpl(
+                    getSpecializationDao(),
+                    getDoctorService()
+            );
             specializationServiceImpl.setTransaction(getTransaction());
             specializationService = specializationServiceImpl;
         }
@@ -70,6 +81,15 @@ public class ServiceFactoryImpl implements ServiceFactory{
         }
 
         return userDao;
+    }
+
+    protected DoctorDao getDoctorDao() {
+        if (doctorDao == null) {
+            DoctorDaoImpl doctorDaoImpl = new DoctorDaoImpl();
+            doctorDaoImpl.setConnection(getConnection());
+            doctorDao = doctorDaoImpl;
+        }
+        return doctorDao;
     }
 
     protected SpecializationDao getSpecializationDao() {

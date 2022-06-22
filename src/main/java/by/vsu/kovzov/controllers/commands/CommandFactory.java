@@ -2,6 +2,7 @@ package by.vsu.kovzov.controllers.commands;
 
 import by.vsu.kovzov.controllers.commands.auth.LoginCommand;
 import by.vsu.kovzov.controllers.commands.auth.LogoutCommand;
+import by.vsu.kovzov.controllers.commands.specialization.SpecializationListCommand;
 import by.vsu.kovzov.controllers.commands.user.UserListCommand;
 import lombok.SneakyThrows;
 
@@ -17,6 +18,8 @@ public class CommandFactory {
         COMMANDS.put("/logout", LogoutCommand.class);
 
         COMMANDS.put("/user/list", UserListCommand.class);
+
+        COMMANDS.put("/specialization/list", SpecializationListCommand.class);
     }
 
     @SneakyThrows
