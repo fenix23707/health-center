@@ -26,14 +26,7 @@
                         <td>${user.role.name}</td>
                         <c:url var="userEditUrl" value="/user/edit.html"/>
                         <td>
-                            <c:choose>
-                                <c:when test="${user.role eq Role.ADMIN}">
-                                    <c:set var="disabled" value="disabled"/>
-                                </c:when>
-                                <c:otherwise>
-                                    <c:remove var="disabled"/>
-                                </c:otherwise>
-                            </c:choose>
+
                             <form action="${userEditUrl}" method="get">
                                 <input type="hidden" name="id" value="${user.id}">
                                 <button type="submit" ${disabled}>Изменить</button>

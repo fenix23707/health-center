@@ -7,8 +7,8 @@ import by.vsu.kovzov.services.DoctorService;
 import by.vsu.kovzov.services.SpecializationService;
 import lombok.AllArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -30,5 +30,19 @@ public class SpecializationServiceImpl extends AbstractService implements Specia
                         .totalCost(doctorService.getTotalSalaryBySpecialization(specialization.getId()))
                         .build()
                 ).collect(Collectors.toList());
+    }
+
+    @Override
+    public Optional<Specialization> findById(Integer id) {
+        return specializationDao.findById(id);
+    }
+
+    @Override
+    public void save(Specialization specialization) {
+        if (specialization.getId() == null) {
+            specializationDao.create(specialization);
+        } else {
+            specializationDao.update(specialization);
+        }
     }
 }
