@@ -1,6 +1,8 @@
 package by.vsu.kovzov.utils.factories;
 
+import by.vsu.kovzov.dao.SpecializationDao;
 import by.vsu.kovzov.dao.UserDao;
+import by.vsu.kovzov.dao.postgres.SpecializationDaoImpl;
 import by.vsu.kovzov.dao.postgres.UserDaoImpl;
 import by.vsu.kovzov.services.AuthService;
 import by.vsu.kovzov.services.Transaction;
@@ -19,6 +21,7 @@ public class ServiceFactoryImpl implements ServiceFactory{
     private Transaction transaction = null;
 
     private UserDao userDao = null;
+    private SpecializationDao specializationDao = null;
 
     private UserService userService = null;
     private AuthService authService = null;
@@ -26,7 +29,9 @@ public class ServiceFactoryImpl implements ServiceFactory{
     @Override
     public UserService getUserService() {
         if (userService == null) {
-            userService = new UserServiceImpl(getUserDao());
+            UserServiceImpl userServiceImpl = new UserServiceImpl(getUserDao());
+            userServiceImpl.setTransaction(getTransaction());
+            userService = userServiceImpl;
         }
 
         return userService;
@@ -35,7 +40,9 @@ public class ServiceFactoryImpl implements ServiceFactory{
     @Override
     public AuthService getAuthService() {
         if (authService == null) {
-            authService = new AuthServiceImpl(getUserDao());
+            AuthServiceImpl authServiceImpl = new AuthServiceImpl(getUserDao());
+            authServiceImpl.setTransaction(getTransaction());
+            authService = authServiceImpl;
         }
 
         return authService;
@@ -49,6 +56,16 @@ public class ServiceFactoryImpl implements ServiceFactory{
         }
 
         return userDao;
+    }
+
+    protected SpecializationDao getSpecializationDao() {
+        if (specializationDao == null) {
+            SpecializationDaoImpl specializationDaoImpl = new SpecializationDaoImpl();
+            specializationDaoImpl.setConnection(getConnection());
+            specializationDao = specializationDaoImpl;
+        }
+
+        return specializationDao;
     }
 
     protected Transaction getTransaction() {
