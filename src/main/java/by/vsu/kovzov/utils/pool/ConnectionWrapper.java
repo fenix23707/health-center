@@ -19,7 +19,7 @@ class ConnectionWrapper implements Connection, Comparable<Connection> {
     @Override
     public void close() {
         ConnectionPool.getInstance().freeConnection(this);
-        connection = null;
+//        connection = null;
     }
 
     @Override
