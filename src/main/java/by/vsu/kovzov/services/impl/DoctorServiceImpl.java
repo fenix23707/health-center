@@ -13,11 +13,11 @@ public class DoctorServiceImpl extends AbstractService implements DoctorService 
 
     @Override
     public int getDoctorsNumberBySpecialization(Integer specializationId) {
-        return 0;
+        return doctorDao.countBySpecialization(specializationId);
     }
 
     @Override
     public BigDecimal getTotalSalaryBySpecialization(Integer specializationId) {
-        return null;
+        return doctorDao.sumSalaryBySpecialization(specializationId);
     }
 }
