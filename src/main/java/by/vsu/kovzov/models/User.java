@@ -1,6 +1,7 @@
 package by.vsu.kovzov.models;
 
 import lombok.Data;
+import lombok.Getter;
 
 @Data
 public class User {
@@ -10,6 +11,7 @@ public class User {
     String password;
     Role role;
 
+    @Getter
     public enum Role {
         ADMIN("Администратор"), REGISTRATOR("регистратор");
 

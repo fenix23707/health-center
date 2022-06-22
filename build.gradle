@@ -13,7 +13,7 @@ repositories {
 dependencies {
     // tomcat
     implementation 'org.apache.tomcat:tomcat-servlet-api:10.0.10'
-
+    implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:2.0.0'
 
     // db
     implementation 'org.postgresql:postgresql:42.4.0'

@@ -4,7 +4,7 @@
 <%@attribute name="title" required="true" rtexprvalue="true" type="java.lang.String" %>
 <%@attribute name="errorMsg" required="false" rtexprvalue="true" type="java.lang.String" %>
 
-<c:url var="cssUrl" value="../css/style.css"/>
+<c:url var="cssUrl" value="/css/style.css"/>
 <c:url var="logoutUrl" value="/logout.html"/>
 <!doctype html>
 <html lang="en">
