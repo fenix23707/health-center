@@ -3,10 +3,8 @@ package by.vsu.kovzov.controllers.commands;
 import by.vsu.kovzov.controllers.commands.auth.LoginCommand;
 import by.vsu.kovzov.controllers.commands.auth.LogoutCommand;
 import by.vsu.kovzov.controllers.commands.user.UserListCommand;
-import jakarta.servlet.ServletException;
 import lombok.SneakyThrows;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;

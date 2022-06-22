@@ -1,7 +1,5 @@
 package by.vsu.kovzov;
 
-import by.vsu.kovzov.dao.UserDao;
-import by.vsu.kovzov.dao.postgres.UserDaoImpl;
 import by.vsu.kovzov.utils.factories.ServiceFactory;
 import by.vsu.kovzov.utils.factories.ServiceFactoryImpl;
 import by.vsu.kovzov.utils.pool.ConnectionPool;

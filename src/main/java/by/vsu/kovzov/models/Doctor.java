@@ -1,6 +1,5 @@
 package by.vsu.kovzov.models;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
