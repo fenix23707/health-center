@@ -10,30 +10,32 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class DoctorListCommand extends Command {
 
     @Override
     public CommandResult execute(HttpServletRequest req, HttpServletResponse resp) {
-        Integer id = null;
+        Integer specializationId = null;
         try {
-            id = Integer.parseInt(req.getParameter("id"));
+            specializationId = Integer.parseInt(req.getParameter("specializationId"));
         } catch (NumberFormatException e) {
         }
         List<Doctor> doctors;
         DoctorService doctorService = getServiceFactory().getDoctorService();
         SpecializationService specializationService = getServiceFactory().getSpecializationService();
-        if (id != null) {
-            doctors = doctorService.getAllBySpecialization(id);
-            Optional<Specialization> specialization = specializationService.findById(id);
+        if (specializationId != null) {
+            doctors = doctorService.getAllBySpecialization(specializationId);
+            Optional<Specialization> specialization = specializationService.findById(specializationId);
             if (specialization.isEmpty()) {
                 return new CommandResult(
                         "/specialization/list.html",
-                        "can't find specialization with id = " + id,
-                        CommandResult.Type.FORWARD
+                        CommandResult.Type.FORWARD,
+                        Map.of("message", "can't find specialization with id = " + specializationId)
                 );
             }
+
             req.setAttribute("specialization", specialization.get());
         } else {
             doctors = doctorService.getAll();

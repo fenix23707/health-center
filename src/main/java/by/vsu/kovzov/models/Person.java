@@ -2,6 +2,7 @@ package by.vsu.kovzov.models;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.experimental.SuperBuilder;
 
 import java.util.Date;
@@ -17,6 +18,13 @@ public class Person {
     Date dob;
 
     public enum Sex{
-        MAN, WOMAN
+        MAN("мужчина"), WOMAN("женщина");
+
+        @Getter
+        private String name;
+
+        Sex(String name) {
+            this.name = name;
+        }
     }
 }

@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 @AllArgsConstructor
 public class DoctorServiceImpl extends AbstractService implements DoctorService {
@@ -21,6 +22,11 @@ public class DoctorServiceImpl extends AbstractService implements DoctorService 
     @Override
     public List<Doctor> getAllBySpecialization(Integer specializationId) {
         return doctorDao.findAllBySpecialization(specializationId);
+    }
+
+    @Override
+    public Optional<Doctor> getById(Long id) {
+        return doctorDao.findById(id);
     }
 
     @Override

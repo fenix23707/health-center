@@ -56,5 +56,7 @@ VALUES ('Хирург', 4000, FALSE),
        ('Фармацевт', 2500, FALSE),
        ('Неонатолога', 3230, TRUE);
 
+INSERT INTO doctors (name, surname, patronymic, sex, dob, employment_date, salary, specialization_id, branch_id) VALUES
+('name', 'surname', 'patronymic',0, '2000-01-01', '2021-01-01', 4000, 1, 1 );
 
 SELECT * from doctors;

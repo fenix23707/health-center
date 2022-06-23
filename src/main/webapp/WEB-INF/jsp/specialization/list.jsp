@@ -53,7 +53,7 @@
                         </td>
                         <td>
                             <c:url var="doctorListUrl" value="/doctor/list.html">
-                                <c:param name="id" value="${specialization.id}"/>
+                                <c:param name="specializationId" value="${specialization.id}"/>
                             </c:url>
                             <a href="${doctorListUrl}">Подробнее</a>
                         </td>

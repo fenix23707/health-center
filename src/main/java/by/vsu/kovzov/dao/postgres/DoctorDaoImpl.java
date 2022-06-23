@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class DoctorDaoImpl extends AbstractDaoImpl implements DoctorDao {
 
@@ -77,6 +78,39 @@ public class DoctorDaoImpl extends AbstractDaoImpl implements DoctorDao {
             close(statement);
         }
         return doctors;
+    }
+
+    @Override
+    @SneakyThrows
+    public Optional<Doctor> findById(Long id) {
+        String sql = "SELECT name, surname, patronymic, sex, dob, employment_date, salary, specialization_id, branch_id FROM doctors WHERE id = ?";
+        Optional<Doctor> doctorOptional = Optional.empty();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = getConnection().prepareStatement(sql);
+            statement.setLong(1, id);
+            resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                Doctor doctor = Doctor.builder()
+                        .id(id)
+                        .name(resultSet.getString("name"))
+                        .surname(resultSet.getString("surname"))
+                        .patronymic(resultSet.getString("patronymic"))
+                        .sex(Person.Sex.values()[resultSet.getInt("sex")])
+                        .dob(resultSet.getDate("dob"))
+                        .employmentDate(resultSet.getDate("employment_date"))
+                        .salary(resultSet.getBigDecimal("salary"))
+                        .specialization(Specialization.builder().id(resultSet.getInt("specialization_id")).build())
+                        .branchNo(resultSet.getObject("branch_id", Integer.class))
+                        .build();
+                doctorOptional = Optional.of(doctor);
+            }
+        } finally {
+            close(resultSet);
+            close(statement);
+        }
+        return doctorOptional;
     }
 
     @Override

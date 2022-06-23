@@ -4,11 +4,11 @@
 <%@ page import="by.vsu.kovzov.models.Doctor" %>
 
 
-<c:if test="${(empty user) && (user.role != 'REGISTRATOR')}">
+<c:if test="${(empty user) || (user.role != 'REGISTRATOR') || (empty specialization)}">
     <c:set var="hidden" value="hidden"></c:set>
 </c:if>
 
-<u:page title="Список врачей по специальности ${specialization.name} ">
+<u:page title="Список врачей по специальности ${specialization.name}" errorMsg="${message}">
     <div class="scroll-table">
         <table>
             <thead>
@@ -16,8 +16,8 @@
                 <th>ФИО</th>
                 <th>Дата рождения</th>
                 <th>Дата приёма на работу</th>
-                <th>Номер участка</th>
                 <th>Заработная плата</th>
+                <th>Номер участка</th>
                 <th ${hidden}>Изменить</th>
             </tr>
             </thead>
@@ -29,23 +29,19 @@
                 <c:forEach var="doctor" items="${doctors}">
 
                     <tr>
-                        <td>${doctor.name + " " + doctor.surname + " " + doctor.patronymic}</td>
                         <td>
-                                ${doctor.dob}
+                            <span>${doctor.name} </span>
+                            <span>${doctor.surname} </span>
+                            <span>${doctor.patronymic} </span>
                         </td>
-                        <td>
-                                ${doctor.employmentDate}
-                        </td>
-                        <td>
-                                ${doctor.salary}
-                        </td>
-                        <td>
-                                ${doctor.branchNo}
-                        </td>
-
+                        <td>${doctor.dob}</td>
+                        <td>${doctor.employmentDate}</td>
+                        <td>${doctor.salary}</td>
+                        <td>${doctor.branchNo}</td>
                         <td ${hidden}>
                             <c:url var="editUrl" value="/doctor/edit.html">
                                 <c:param name="id" value="${doctor.id}"/>
+                                <c:param name="specializationId" value="${specialization.id}"/>
                             </c:url>
                             <a ${hidden} href="${editUrl}">Изменить</a>
                         </td>
@@ -55,7 +51,11 @@
             </table>
         </div>
 
-        <c:url var="createUrl" value="/doctor/edit.html"/>
-        <a ${hidden} href="${createUrl}">Добавить</a>
+        <td ${hidden}>
+            <c:url var="editUrl" value="/doctor/edit.html">
+                <c:param name="specializationId" value="${specialization.id}"/>
+            </c:url>
+            <a ${hidden} href="${editUrl}">Добавить</a>
+        </td>
     </div>
 </u:page>
