@@ -5,7 +5,6 @@ import by.vsu.kovzov.controllers.commands.CommandResult;
 import by.vsu.kovzov.models.Doctor;
 import by.vsu.kovzov.models.Specialization;
 import by.vsu.kovzov.services.DoctorService;
-import by.vsu.kovzov.services.SpecializationService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 

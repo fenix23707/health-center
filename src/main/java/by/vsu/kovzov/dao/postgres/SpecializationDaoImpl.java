@@ -2,7 +2,6 @@ package by.vsu.kovzov.dao.postgres;
 
 import by.vsu.kovzov.dao.SpecializationDao;
 import by.vsu.kovzov.models.Specialization;
-import by.vsu.kovzov.models.User;
 import lombok.SneakyThrows;
 
 import java.sql.PreparedStatement;

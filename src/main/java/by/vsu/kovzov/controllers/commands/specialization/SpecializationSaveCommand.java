@@ -5,7 +5,6 @@ import by.vsu.kovzov.controllers.commands.CommandResult;
 import by.vsu.kovzov.models.Specialization;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.apache.commons.lang3.math.NumberUtils;
 
 import java.math.BigDecimal;
 
