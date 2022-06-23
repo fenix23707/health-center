@@ -3,6 +3,10 @@
 <%@taglib prefix="u" tagdir="/WEB-INF/tags" %>
 <%@ page import="by.vsu.kovzov.models.User.Role" %>
 
+<c:if test="${(empty user) || (user.role != 'REGISTRATOR')}">
+    <c:set var="hidden" value="hidden"></c:set>
+</c:if>
+
 <u:page title="Список специализаций" errorMsg="${param.message}">
 
     <div class="scroll-table">
@@ -15,9 +19,7 @@
                 <th>Ставка заработной платы</th>
                 <th>Общие затраты на оплату труда</th>
                 <th>Подробнее</th>
-                <c:if test="${(not empty user) && (user.role eq 'REGISTRATOR')}">
-                    <th>Изменить</th>
-                </c:if>
+                <th ${hidden}>Изменить</th>
             </tr>
             </thead>
         </table>
@@ -50,29 +52,24 @@
                                 ${specialization.totalCost}
                         </td>
                         <td>
-                            <c:url var="doctorListUrl" value="/doctor/list.html"/>
-                            <form action="${doctorListUrl}" method="get">
-                                <input type="hidden" name="id" value="${specialization.id}">
-                                <button type="submit" ${disabled}>Подробнее</button>
-                            </form>
+                            <c:url var="doctorListUrl" value="/doctor/list.html">
+                                <c:param name="id" value="${specialization.id}"/>
+                            </c:url>
+                            <a href="${doctorListUrl}">Подробнее</a>
                         </td>
-                        <c:if test="${not empty user && user.role eq 'REGISTRATOR'}">
-                            <td>
-                                <c:url var="editUrl" value="/specialization/edit.html">
-                                    <c:param name="id" value="${specialization.id}"/>
-                                </c:url>
-                                <a href="${editUrl}">Изменить</a>
-                            </td>
-                        </c:if>
+                        <td ${hidden}>
+                            <c:url var="editUrl" value="/specialization/edit.html">
+                                <c:param name="id" value="${specialization.id}"/>
+                            </c:url>
+                            <a href="${editUrl}">Изменить</a>
+                        </td>
                     </tr>
                 </c:forEach>
                 </tbody>
             </table>
         </div>
 
-        <c:if test="${(not empty user) && (user.role eq 'REGISTRATOR')}">
-            <c:url var="createUrl" value="/specialization/edit.html"/>
-            <a href="${createUrl}">Добавить</a>
-        </c:if>
+        <c:url var="createUrl" value="/specialization/edit.html"/>
+        <a ${hidden} href="${createUrl}">Добавить</a>
     </div>
 </u:page>
