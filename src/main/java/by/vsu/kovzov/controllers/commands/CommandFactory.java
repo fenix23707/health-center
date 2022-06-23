@@ -16,6 +16,8 @@ public class CommandFactory {
     private static final Map<String, Class<? extends Command>> COMMANDS = new HashMap<>();
 
     static {
+        COMMANDS.put("/", MainCommand.class);
+        COMMANDS.put("/index", MainCommand.class);
         COMMANDS.put("/login", LoginCommand.class);
         COMMANDS.put("/logout", LogoutCommand.class);
 
