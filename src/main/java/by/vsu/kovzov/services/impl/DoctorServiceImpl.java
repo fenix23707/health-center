@@ -30,6 +30,13 @@ public class DoctorServiceImpl extends AbstractService implements DoctorService 
     }
 
     @Override
+    public void save(Doctor doctor) {
+        // TODO: implement
+        System.out.println(doctor);
+        System.out.println(doctor);
+    }
+
+    @Override
     public int getDoctorsNumberBySpecialization(Integer specializationId) {
         return doctorDao.countBySpecialization(specializationId);
     }

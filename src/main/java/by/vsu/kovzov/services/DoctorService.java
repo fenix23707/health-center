@@ -17,4 +17,6 @@ public interface DoctorService {
     int getDoctorsNumberBySpecialization(Integer specializationId);
 
     BigDecimal getTotalSalaryBySpecialization(Integer specializationId);
+
+    void save(Doctor doctor);
 }
