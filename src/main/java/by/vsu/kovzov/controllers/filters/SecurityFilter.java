@@ -48,7 +48,7 @@ public class SecurityFilter implements Filter {
         if (roles != null) {
             HttpSession session = req.getSession(false);
             if (session != null) {
-                User user = (User) session.getAttribute("session_user");
+                User user = (User) session.getAttribute("user");
                 if (user != null && roles.contains(user.getRole())) {
                     chain.doFilter(request, response);
                     return;
