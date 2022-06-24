@@ -59,6 +59,7 @@ public class ServiceFactoryImpl implements ServiceFactory{
             doctorServiceImpl.setTransaction(getTransaction());
             doctorServiceImpl.setDoctorDao(getDoctorDao());
             doctorServiceImpl.setSalaryService(getSalaryService());
+            doctorServiceImpl.setEmployeeService(getEmployeeService());
         }
         return doctorService;
     }

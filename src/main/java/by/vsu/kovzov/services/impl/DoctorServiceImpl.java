@@ -3,6 +3,7 @@ package by.vsu.kovzov.services.impl;
 import by.vsu.kovzov.dao.DoctorDao;
 import by.vsu.kovzov.models.Doctor;
 import by.vsu.kovzov.services.DoctorService;
+import by.vsu.kovzov.services.EmployeeService;
 import by.vsu.kovzov.services.SalaryService;
 import lombok.Setter;
 
@@ -16,6 +17,8 @@ public class DoctorServiceImpl extends AbstractService implements DoctorService 
     private DoctorDao doctorDao;
 
     private SalaryService salaryService;
+
+    private EmployeeService employeeService;
 
     @Override
     public List<Doctor> getAll() {
@@ -34,9 +37,14 @@ public class DoctorServiceImpl extends AbstractService implements DoctorService 
 
     @Override
     public void save(Doctor doctor) {
-        // TODO: implement
-        System.out.println(doctor);
-        System.out.println(doctor);
+        employeeService.checkEmploymentAge(doctor);
+        doctor.setSalary(salaryService.calculateSalary(doctor));
+
+        if (doctor.getId() == null) {
+            doctorDao.create(doctor);
+        } else {
+            doctorDao.update(doctor);
+        }
     }
 
     @Override
