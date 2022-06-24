@@ -22,7 +22,7 @@ public class DoctorSaveCommand extends Command {
         getServiceFactory().getDoctorService().save(doctor);
         return new CommandResult(
                 "/doctor/list.html",
-                CommandResult.Type.FORWARD,
+                CommandResult.Type.REDIRECT,
                 Map.of("specializationId", String.valueOf(doctor.getSpecialization().getId()))
         );
     }

@@ -13,7 +13,7 @@ public class SpecializationSaveCommand extends Command {
     @Override
     public CommandResult execute(HttpServletRequest req, HttpServletResponse resp) {
         getServiceFactory().getSpecializationService().save(getSpecialization(req));
-        return new CommandResult("/specialization/list.html", CommandResult.Type.FORWARD);
+        return new CommandResult("/specialization/list.html", CommandResult.Type.REDIRECT);
     }
 
     private Specialization getSpecialization(HttpServletRequest req) {
