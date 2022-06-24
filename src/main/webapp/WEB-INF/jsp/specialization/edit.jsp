@@ -11,7 +11,7 @@
     </c:otherwise>
 </c:choose>
 
-<u:page title="${title}">
+<u:page title="${title}" errorMsg="${param.message}">
     <c:url var="specializationSaveUrl" value="/specialization/save.html"/>
     <form action="${specializationSaveUrl}" method="post">
         <c:if test="${not empty specialization}">

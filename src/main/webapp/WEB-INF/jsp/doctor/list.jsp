@@ -8,7 +8,7 @@
     <c:set var="hidden" value="hidden"></c:set>
 </c:if>
 
-<u:page title="Список врачей по специальности ${specialization.name}" errorMsg="${message}">
+<u:page title="Список врачей по специальности ${specialization.name}" errorMsg="${param.message}">
     <div class="scroll-table">
         <table>
             <thead>

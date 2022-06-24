@@ -13,7 +13,7 @@
     </c:otherwise>
 </c:choose>
 
-<u:page title="${title}">
+<u:page title="${title}" errorMsg="${param.message}">
     <c:url var="saveUrl" value="/doctor/save.html"/>
     <form action="${saveUrl}" method="post">
         <c:if test="${not empty doctor}">
