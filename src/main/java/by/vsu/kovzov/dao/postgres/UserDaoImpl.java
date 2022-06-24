@@ -6,6 +6,8 @@ import lombok.SneakyThrows;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -85,5 +87,49 @@ public class UserDaoImpl extends AbstractDaoImpl implements UserDao {
             close(statement);
         }
         return optionalUser;
+    }
+
+    @Override
+    @SneakyThrows
+    public Long create(User user) {
+        String sql = "INSERT INTO users (login, password, role) VALUES (?,?, ?)";
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            statement.setString(1, user.getLogin());
+            statement.setString(2, user.getPassword());
+            statement.setInt(3, user.getRole().ordinal());
+            statement.executeUpdate();
+            resultSet = statement.getGeneratedKeys();
+            resultSet.next();
+            Long id = resultSet.getLong(1);
+            user.setId(id);
+            return id;
+        } finally {
+            close(statement);
+            close(resultSet);
+        }
+    }
+
+    @Override
+    @SneakyThrows
+    public void update(User user) {
+        String sql = "UPDATE users SET login = ?, password = coalesce(? , password), role = ? WHERE id = ?";
+        PreparedStatement statement = null;
+        try {
+            statement = getConnection().prepareStatement(sql);
+            statement.setString(1, user.getLogin());
+            if (user.getPassword().isBlank()) {
+                statement.setNull(2, Types.VARCHAR);
+            } else {
+                statement.setString(2, user.getPassword());
+            }
+            statement.setInt(3, user.getRole().ordinal());
+            statement.setLong(4, user.getId());
+            statement.executeUpdate();
+        } finally {
+            close(statement);
+        }
     }
 }

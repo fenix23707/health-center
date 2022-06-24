@@ -5,12 +5,20 @@ import by.vsu.kovzov.controllers.commands.CommandResult;
 import by.vsu.kovzov.models.Doctor;
 import by.vsu.kovzov.models.Person;
 import by.vsu.kovzov.models.Specialization;
+import com.google.common.primitives.Ints;
+import com.google.common.primitives.Longs;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.SneakyThrows;
+import org.postgresql.shaded.com.ongres.scram.common.bouncycastle.pbkdf2.Integers;
 
 import java.text.SimpleDateFormat;
 import java.util.Map;
+
+import static com.google.common.base.MoreObjects.firstNonNull;
+import static com.google.common.primitives.Ints.tryParse;
+import static java.lang.Integer.getInteger;
+import static java.lang.Long.getLong;
 
 public class DoctorSaveCommand extends Command {
 
@@ -30,35 +38,18 @@ public class DoctorSaveCommand extends Command {
     @SneakyThrows
     private Doctor getDoctor(HttpServletRequest req) {
         return Doctor.builder()
-                .id(getLong(req, "id"))
+                .id(Longs.tryParse(firstNonNull(req.getParameter("id"), "")))
                 .name(req.getParameter("name"))
                 .surname(req.getParameter("surname"))
                 .patronymic(req.getParameter("patronymic"))
                 .sex(Person.Sex.valueOf(req.getParameter("sex")))
                 .dob(DATE_FORMAT.parse(req.getParameter("dob")))
                 .employmentDate(DATE_FORMAT.parse(req.getParameter("employmentDate")))
-                .branchNo(getInteger(req, "branchNo"))
-                .specialization(Specialization.builder().id(getInteger(req, "specializationId")).build())
+                .branchNo(getInteger(req.getParameter("branchNo"), null))
+                .specialization(Specialization.builder()
+                        .id(Ints.tryParse(firstNonNull(req.getParameter("specializationId"), "")))
+                        .build())
                 .build();
     }
-
-    private Long getLong(HttpServletRequest req, String key) {
-        Long value = null;
-        try {
-            value = Long.valueOf(req.getParameter(key));
-        } catch (Exception e) {
-        }
-        return value;
-    }
-
-    private Integer getInteger(HttpServletRequest req, String key) {
-        Integer value = null;
-        try {
-            value = Integer.valueOf(req.getParameter(key));
-        } catch (Exception e) {
-        }
-        return value;
-    }
-
 
 }

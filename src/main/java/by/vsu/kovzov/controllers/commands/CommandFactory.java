@@ -12,6 +12,7 @@ import by.vsu.kovzov.controllers.commands.specialization.SpecializationListComma
 import by.vsu.kovzov.controllers.commands.specialization.SpecializationSaveCommand;
 import by.vsu.kovzov.controllers.commands.user.UserEditCommand;
 import by.vsu.kovzov.controllers.commands.user.UserListCommand;
+import by.vsu.kovzov.controllers.commands.user.UserSaveCommand;
 import lombok.SneakyThrows;
 
 import java.util.HashMap;
@@ -19,6 +20,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public class CommandFactory {
+
     private static final Map<String, Class<? extends Command>> COMMANDS = new HashMap<>();
 
     static {
@@ -29,6 +31,7 @@ public class CommandFactory {
 
         COMMANDS.put("/user/list", UserListCommand.class);
         COMMANDS.put("/user/edit", UserEditCommand.class);
+        COMMANDS.put("/user/save", UserSaveCommand.class);
 
         COMMANDS.put("/specialization/list", SpecializationListCommand.class);
         COMMANDS.put("/specialization/edit", SpecializationEditCommand.class);

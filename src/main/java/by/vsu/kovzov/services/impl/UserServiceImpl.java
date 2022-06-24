@@ -26,4 +26,13 @@ public class UserServiceImpl extends AbstractService implements UserService {
         return optionalUser
                 .orElseThrow(() -> new ServiceException(HttpStatus.SC_NOT_FOUND, "can't find user with id = " + userId));
     }
+
+    @Override
+    public void save(User user) {
+        if (user.getId() == null) {
+            userDao.create(user);
+        } else {
+            userDao.update(user);
+        }
+    }
 }

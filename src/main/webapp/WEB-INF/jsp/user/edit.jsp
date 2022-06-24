@@ -23,6 +23,10 @@
             <input type="text" id="login" name="login" value="${user_edit.login}">
         </div>
         <div>
+            <label for="password">Пароль: </label>
+            <input type="password" id="password" name="password ">
+        </div>
+        <div>
             <label for="role">Роль: </label>
             <select id="role" name="role">
                 <c:forEach var="item" items="<%=User.Role.values()%>">
@@ -43,4 +47,6 @@
 
         <button type="submit">Сохранить</button>
     </form>
+    <c:url var="listUrl" value="/user/list.html"/>
+    <a href="${listUrl}">Отмена</a>
 </u:page>

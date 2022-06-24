@@ -13,7 +13,7 @@ public class User {
 
     @Getter
     public enum Role {
-        ADMIN("Администратор"), REGISTRATOR("регистратор");
+        ADMIN("Администратор"), REGISTRATOR("Регистратор");
 
         private String name;
 

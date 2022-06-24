@@ -11,4 +11,8 @@ public interface UserDao {
     Optional<User> findByLoginAndPassword(String login, String password);
 
     Optional<User> findById(Long userId);
+
+    Long create(User user);
+
+    void update(User user);
 }

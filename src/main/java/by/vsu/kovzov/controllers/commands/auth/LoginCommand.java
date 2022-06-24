@@ -26,9 +26,9 @@ public class LoginCommand extends Command {
                 return new CommandResult("/index.html", CommandResult.Type.FORWARD);
             } else {
                 String message = "incorrect login or password";
-                String url = "/login-form.html?message="
+                String url = "/login.html?message="
                         + URLEncoder.encode(message, "UTF-8");
-                return new CommandResult(url, CommandResult.Type.FORWARD);
+                return new CommandResult(url, CommandResult.Type.REDIRECT);
             }
         } else {
             return null;
