@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.SneakyThrows;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -27,14 +28,15 @@ public class CommandResult {
         FORWARD, REDIRECT
     }
 
-    @SneakyThrows
-    private String getParam(String name, String value) {
-        return format("%s=%s", name, URLEncoder.encode(value, "UTF-8"));
-    }
-
     private String getParams(Map<String, String> params) {
         return "?" + params.entrySet().stream()
-                .map(e -> format("%s=%s", e.getKey(), e.getValue()))
+                .map(e -> {
+                    try {
+                        return format("%s=%s", e.getKey(), URLEncoder.encode(e.getValue(), "UTF-8"));
+                    } catch (UnsupportedEncodingException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                })
                 .collect(Collectors.joining("&"));
     }
 }

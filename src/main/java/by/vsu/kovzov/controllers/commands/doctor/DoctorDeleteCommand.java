@@ -19,7 +19,7 @@ public class DoctorDeleteCommand extends Command {
         } catch (NumberFormatException e) {
         }
         DoctorService doctorService = getServiceFactory().getDoctorService();
-        if (id == null || doctorService.delete(id)) {
+        if (id == null || !doctorService.delete(id)) {
             msg = "Не удалось удалить доктора";
         }
 
