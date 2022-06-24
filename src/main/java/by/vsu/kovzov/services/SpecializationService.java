@@ -13,4 +13,6 @@ public interface SpecializationService {
     Optional<Specialization> findById(Integer id);
 
     void save(Specialization specialization);
+
+    boolean delete(Integer id);
 }

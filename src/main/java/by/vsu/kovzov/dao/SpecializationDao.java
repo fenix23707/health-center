@@ -13,4 +13,6 @@ public interface SpecializationDao {
     Integer create(Specialization specialization);
 
     void update(Specialization specialization);
+
+    int delete(Integer specializationId);
 }

@@ -5,7 +5,9 @@ import by.vsu.kovzov.dto.SpecializationDto;
 import by.vsu.kovzov.models.Specialization;
 import by.vsu.kovzov.services.DoctorService;
 import by.vsu.kovzov.services.SpecializationService;
+import by.vsu.kovzov.services.exceptions.ServiceException;
 import lombok.Setter;
+import org.apache.http.HttpStatus;
 
 import java.util.List;
 import java.util.Optional;
@@ -43,6 +45,18 @@ public class SpecializationServiceImpl extends AbstractService implements Specia
             specializationDao.create(specialization);
         } else {
             specializationDao.update(specialization);
+        }
+    }
+
+    @Override
+    public boolean delete(Integer specializationId) {
+        checkCanDelete(specializationId);
+        return specializationDao.delete(specializationId) == 1;
+    }
+
+    private void checkCanDelete(Integer specializationId) {
+        if (doctorService.getDoctorsNumberBySpecialization(specializationId) > 0) {
+            throw new ServiceException(HttpStatus.SC_CONFLICT, "Существуют врачи с этой специальностью");
         }
     }
 }

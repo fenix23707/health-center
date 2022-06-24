@@ -105,4 +105,18 @@ public class SpecializationDaoImpl extends AbstractDaoImpl implements Specializa
             close(statement);
         }
     }
+
+    @Override
+    @SneakyThrows
+    public int delete(Integer specializationId) {
+        String sql = "DELETE FROM specializations WHERE id = ?";
+        PreparedStatement statement = null;
+        try {
+            statement = getConnection().prepareStatement(sql);
+            statement.setInt(1, specializationId);
+            return statement.executeUpdate();
+        } finally {
+            close(statement);
+        }
+    }
 }

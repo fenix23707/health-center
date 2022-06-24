@@ -59,11 +59,18 @@
             </table>
         </div>
 
-        <td ${hidden}>
+        <div ${hidden}>
             <c:url var="editUrl" value="/doctor/edit.html">
                 <c:param name="specializationId" value="${specialization.id}"/>
             </c:url>
             <a ${hidden} href="${editUrl}">Добавить</a>
-        </td>
+        </div>
+
+        <div ${hidden}>
+            <c:url var="deleteUrl" value="/specialization/delete.html">
+                <c:param name="specializationId" value="${specialization.id}"/>
+            </c:url>
+            <a href="${deleteUrl}">Удалить</a>
+        </div>
     </div>
 </u:page>
