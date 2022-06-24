@@ -9,4 +9,6 @@ public interface UserDao {
     List<User> findAll();
 
     Optional<User> findByLoginAndPassword(String login, String password);
+
+    Optional<User> findById(Long userId);
 }

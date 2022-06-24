@@ -3,9 +3,12 @@ package by.vsu.kovzov.services.impl;
 import by.vsu.kovzov.dao.UserDao;
 import by.vsu.kovzov.models.User;
 import by.vsu.kovzov.services.UserService;
+import by.vsu.kovzov.services.exceptions.ServiceException;
 import lombok.AllArgsConstructor;
+import org.apache.http.HttpStatus;
 
 import java.util.List;
+import java.util.Optional;
 
 @AllArgsConstructor
 public class UserServiceImpl extends AbstractService implements UserService {
@@ -15,5 +18,12 @@ public class UserServiceImpl extends AbstractService implements UserService {
     @Override
     public List<User> getAll() {
         return userDao.findAll();
+    }
+
+    @Override
+    public User findById(Long userId) {
+        Optional<User> optionalUser = userDao.findById(userId);
+        return optionalUser
+                .orElseThrow(() -> new ServiceException(HttpStatus.SC_NOT_FOUND, "can't find user with id = " + userId));
     }
 }

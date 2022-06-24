@@ -10,6 +10,7 @@ import by.vsu.kovzov.controllers.commands.specialization.SpecializationDeleteCom
 import by.vsu.kovzov.controllers.commands.specialization.SpecializationEditCommand;
 import by.vsu.kovzov.controllers.commands.specialization.SpecializationListCommand;
 import by.vsu.kovzov.controllers.commands.specialization.SpecializationSaveCommand;
+import by.vsu.kovzov.controllers.commands.user.UserEditCommand;
 import by.vsu.kovzov.controllers.commands.user.UserListCommand;
 import lombok.SneakyThrows;
 
@@ -27,6 +28,7 @@ public class CommandFactory {
         COMMANDS.put("/logout", LogoutCommand.class);
 
         COMMANDS.put("/user/list", UserListCommand.class);
+        COMMANDS.put("/user/edit", UserEditCommand.class);
 
         COMMANDS.put("/specialization/list", SpecializationListCommand.class);
         COMMANDS.put("/specialization/edit", SpecializationEditCommand.class);
