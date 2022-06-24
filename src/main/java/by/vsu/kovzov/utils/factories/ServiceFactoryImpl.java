@@ -26,6 +26,8 @@ public class ServiceFactoryImpl implements ServiceFactory{
     private AuthService authService = null;
     private DoctorService doctorService = null;
     private SpecializationService specializationService = null;
+    private SalaryService salaryService = null;
+    private EmployeeService employeeService = null;
 
     @Override
     public UserService getUserService() {
@@ -52,9 +54,11 @@ public class ServiceFactoryImpl implements ServiceFactory{
     @Override
     public DoctorService getDoctorService() {
         if (doctorService == null) {
-            DoctorServiceImpl doctorServiceImpl = new DoctorServiceImpl(getDoctorDao());
-            doctorServiceImpl.setTransaction(getTransaction());
+            DoctorServiceImpl doctorServiceImpl = new DoctorServiceImpl();
             doctorService = doctorServiceImpl;
+            doctorServiceImpl.setTransaction(getTransaction());
+            doctorServiceImpl.setDoctorDao(getDoctorDao());
+            doctorServiceImpl.setSalaryService(getSalaryService());
         }
         return doctorService;
     }
@@ -62,15 +66,37 @@ public class ServiceFactoryImpl implements ServiceFactory{
     @Override
     public SpecializationService getSpecializationService() {
         if (specializationService == null) {
-            SpecializationServiceImpl specializationServiceImpl = new SpecializationServiceImpl(
-                    getSpecializationDao(),
-                    getDoctorService()
-            );
-            specializationServiceImpl.setTransaction(getTransaction());
+            SpecializationServiceImpl specializationServiceImpl = new SpecializationServiceImpl();
             specializationService = specializationServiceImpl;
+            specializationServiceImpl.setTransaction(getTransaction());
+            specializationServiceImpl.setSpecializationDao(getSpecializationDao());
+            specializationServiceImpl.setDoctorService(getDoctorService());
         }
 
         return specializationService;
+    }
+
+    @Override
+    public SalaryService getSalaryService() {
+        if (salaryService == null) {
+            SalaryServiceImpl salaryServiceImpl = new SalaryServiceImpl();
+            salaryService = salaryServiceImpl;
+            salaryServiceImpl.setTransaction(getTransaction());
+            salaryServiceImpl.setSpecializationService(getSpecializationService());
+            salaryServiceImpl.setEmployeeService(getEmployeeService());
+        }
+
+        return salaryService;
+    }
+
+    @Override
+    public EmployeeService getEmployeeService() {
+        if (employeeService == null) {
+            EmployeeServiceImpl employeeServiceImpl = new EmployeeServiceImpl();
+            employeeService = employeeServiceImpl;
+            employeeServiceImpl.setTransaction(getTransaction());
+        }
+        return employeeService;
     }
 
     protected UserDao getUserDao() {

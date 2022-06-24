@@ -14,6 +14,10 @@ public interface DoctorDao {
 
     Optional<Doctor> findById(Long id);
 
+    Long create(Doctor doctor);
+
+    void update(Doctor doctor);
+
     int countBySpecialization(Integer specializationId);
 
     BigDecimal sumSalaryBySpecialization(Integer specializationId);

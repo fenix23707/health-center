@@ -3,16 +3,19 @@ package by.vsu.kovzov.services.impl;
 import by.vsu.kovzov.dao.DoctorDao;
 import by.vsu.kovzov.models.Doctor;
 import by.vsu.kovzov.services.DoctorService;
-import lombok.AllArgsConstructor;
+import by.vsu.kovzov.services.SalaryService;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
-@AllArgsConstructor
+@Setter
 public class DoctorServiceImpl extends AbstractService implements DoctorService {
 
-    private final DoctorDao doctorDao;
+    private DoctorDao doctorDao;
+
+    private SalaryService salaryService;
 
     @Override
     public List<Doctor> getAll() {
@@ -45,5 +48,4 @@ public class DoctorServiceImpl extends AbstractService implements DoctorService 
     public BigDecimal getTotalSalaryBySpecialization(Integer specializationId) {
         return doctorDao.sumSalaryBySpecialization(specializationId);
     }
-
 }

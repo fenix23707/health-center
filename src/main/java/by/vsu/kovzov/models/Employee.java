@@ -4,11 +4,13 @@ import lombok.Data;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
 @Data
 @ToString(callSuper = true)
 @SuperBuilder
-public class Doctor extends Employee {
-
-    Specialization specialization;
-    Integer branchNo;
+public class Employee extends Person {
+    Date employmentDate;
+    BigDecimal salary;
 }

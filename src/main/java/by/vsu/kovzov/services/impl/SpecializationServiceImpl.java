@@ -5,13 +5,13 @@ import by.vsu.kovzov.dto.SpecializationDto;
 import by.vsu.kovzov.models.Specialization;
 import by.vsu.kovzov.services.DoctorService;
 import by.vsu.kovzov.services.SpecializationService;
-import lombok.AllArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@AllArgsConstructor
+@Setter
 public class SpecializationServiceImpl extends AbstractService implements SpecializationService {
 
     private SpecializationDao specializationDao;

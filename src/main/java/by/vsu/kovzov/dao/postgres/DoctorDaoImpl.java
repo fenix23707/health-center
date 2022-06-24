@@ -114,6 +114,16 @@ public class DoctorDaoImpl extends AbstractDaoImpl implements DoctorDao {
     }
 
     @Override
+    public Long create(Doctor doctor) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void update(Doctor doctor) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     @SneakyThrows
     public int countBySpecialization(Integer specializationId) {
         String sql = "SELECT count(*) FROM doctors WHERE specialization_id = ?";

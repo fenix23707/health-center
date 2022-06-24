@@ -1,9 +1,6 @@
 package by.vsu.kovzov.utils.factories;
 
-import by.vsu.kovzov.services.AuthService;
-import by.vsu.kovzov.services.DoctorService;
-import by.vsu.kovzov.services.SpecializationService;
-import by.vsu.kovzov.services.UserService;
+import by.vsu.kovzov.services.*;
 
 public interface ServiceFactory extends AutoCloseable {
     UserService getUserService();
@@ -13,4 +10,8 @@ public interface ServiceFactory extends AutoCloseable {
     SpecializationService getSpecializationService();
 
     DoctorService getDoctorService();
+
+    SalaryService getSalaryService();
+
+    EmployeeService getEmployeeService();
 }
