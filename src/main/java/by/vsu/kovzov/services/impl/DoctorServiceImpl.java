@@ -48,6 +48,11 @@ public class DoctorServiceImpl extends AbstractService implements DoctorService 
     }
 
     @Override
+    public boolean delete(Long id) {
+        return doctorDao.delete(id) == 1;
+    }
+
+    @Override
     public int getDoctorsNumberBySpecialization(Integer specializationId) {
         return doctorDao.countBySpecialization(specializationId);
     }

@@ -19,6 +19,7 @@
                 <th>Заработная плата</th>
                 <th>Номер участка</th>
                 <th ${hidden}>Изменить</th>
+                <th ${hidden}>Удалить</th>
             </tr>
             </thead>
         </table>
@@ -43,7 +44,14 @@
                                 <c:param name="id" value="${doctor.id}"/>
                                 <c:param name="specializationId" value="${specialization.id}"/>
                             </c:url>
-                            <a ${hidden} href="${editUrl}">Изменить</a>
+                            <a href="${editUrl}">Изменить</a>
+                        </td>
+                        <td ${hidden}>
+                            <c:url var="deleteUrl" value="/doctor/delete.html">
+                                <c:param name="id" value="${doctor.id}"/>
+                                <c:param name="specializationId" value="${specialization.id}"/>
+                            </c:url>
+                            <a href="${deleteUrl}">Удалить</a>
                         </td>
                     </tr>
                 </c:forEach>

@@ -19,4 +19,6 @@ public interface DoctorService {
     BigDecimal getTotalSalaryBySpecialization(Integer specializationId);
 
     void save(Doctor doctor);
+
+    boolean delete(Long id);
 }

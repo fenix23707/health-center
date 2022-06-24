@@ -2,6 +2,7 @@ package by.vsu.kovzov.controllers.commands;
 
 import by.vsu.kovzov.controllers.commands.auth.LoginCommand;
 import by.vsu.kovzov.controllers.commands.auth.LogoutCommand;
+import by.vsu.kovzov.controllers.commands.doctor.DoctorDeleteCommand;
 import by.vsu.kovzov.controllers.commands.doctor.DoctorEditCommand;
 import by.vsu.kovzov.controllers.commands.doctor.DoctorListCommand;
 import by.vsu.kovzov.controllers.commands.doctor.DoctorSaveCommand;
@@ -33,6 +34,7 @@ public class CommandFactory {
         COMMANDS.put("/doctor/list", DoctorListCommand.class);
         COMMANDS.put("/doctor/edit", DoctorEditCommand.class);
         COMMANDS.put("/doctor/save", DoctorSaveCommand.class);
+        COMMANDS.put("/doctor/delete", DoctorDeleteCommand.class);
     }
 
     @SneakyThrows

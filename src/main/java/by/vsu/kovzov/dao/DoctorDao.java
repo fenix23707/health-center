@@ -21,4 +21,6 @@ public interface DoctorDao {
     int countBySpecialization(Integer specializationId);
 
     BigDecimal sumSalaryBySpecialization(Integer specializationId);
+
+    int delete(Long id);
 }

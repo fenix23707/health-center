@@ -174,6 +174,20 @@ public class DoctorDaoImpl extends AbstractDaoImpl implements DoctorDao {
 
     @Override
     @SneakyThrows
+    public int delete(Long id) {
+        String sql = "DELETE FROM doctors WHERE id = ?";
+        PreparedStatement statement = null;
+        try {
+            statement = getConnection().prepareStatement(sql);
+            statement.setLong(1, id);
+            return statement.executeUpdate();
+        } finally {
+            close(statement);
+        }
+    }
+
+    @Override
+    @SneakyThrows
     public int countBySpecialization(Integer specializationId) {
         String sql = "SELECT count(*) FROM doctors WHERE specialization_id = ?";
 
