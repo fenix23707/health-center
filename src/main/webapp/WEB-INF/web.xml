@@ -63,28 +63,14 @@
     </servlet-mapping>
     <!-- Define filters-->
 
-<!--    <filter>-->
-<!--        <filter-name>EncodingFilter</filter-name>-->
-<!--        <filter-class>by.vsu.controller.filters.EncodingFilter</filter-class>-->
-<!--        <init-param>-->
-<!--            <param-name>"encoding"</param-name>-->
-<!--            <param-value>UTF-8</param-value>-->
-<!--        </init-param>-->
-<!--    </filter>-->
-<!--    <filter-mapping>-->
-<!--        <filter-name>EncodingFilter</filter-name>-->
-<!--        <url-pattern>*.html</url-pattern>-->
-<!--    </filter-mapping>-->
-
-
-<!--    <filter>-->
-<!--        <filter-name>SecurityFilter</filter-name>-->
-<!--        <filter-class>by.vsu.controller.filters.SecurityFilter</filter-class>-->
-<!--    </filter>-->
-<!--    <filter-mapping>-->
-<!--        <filter-name>SecurityFilter</filter-name>-->
-<!--        <url-pattern>*.html</url-pattern>-->
-<!--    </filter-mapping>-->
+    <filter>
+        <filter-name>SecurityFilter</filter-name>
+        <filter-class>by.vsu.kovzov.controllers.filters.SecurityFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>SecurityFilter</filter-name>
+        <url-pattern>*.html</url-pattern>
+    </filter-mapping>
 
     <!-- Define listeners-->
 

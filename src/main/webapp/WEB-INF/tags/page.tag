@@ -40,7 +40,7 @@
             ${user.login}&nbsp;&mdash; <a href="${logoutUrl}">выйти</a>
         </c:when>
         <c:otherwise>
-            <c:url var="loginFormUrl" value="/login-form.html"/>
+            <c:url var="loginFormUrl" value="/login.html"/>
             <a href="${loginFormUrl}">войти</a>
         </c:otherwise>
     </c:choose>
