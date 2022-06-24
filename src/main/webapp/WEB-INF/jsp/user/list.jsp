@@ -11,7 +11,8 @@
             <tr>
                 <th>Логин</th>
                 <th>Роль</th>
-                <th></th>
+                <th>Изменить</th>
+                <th>Удалить</th>
             </tr>
             </thead>
         </table>
@@ -24,13 +25,17 @@
                     <tr>
                         <td>${user.login}</td>
                         <td>${user.role.name}</td>
-                        <c:url var="userEditUrl" value="/user/edit.html"/>
                         <td>
-
-                            <form action="${userEditUrl}" method="get">
-                                <input type="hidden" name="id" value="${user.id}">
-                                <button type="submit" ${disabled}>Изменить</button>
-                            </form>
+                            <c:url var="userEditUrl" value="/user/edit.html">
+                                <c:param name="id" value="${user.id}"/>
+                            </c:url>
+                            <a href="${userEditUrl}">Изменить</a>
+                        </td>
+                        <td>
+                            <c:url var="deleteUrl" value="/user/delete.html">
+                                <c:param name="id" value="${user.id}"/>
+                            </c:url>
+                            <a href="${deleteUrl}">Удалить</a>
                         </td>
                     </tr>
                 </c:forEach>

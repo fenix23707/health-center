@@ -24,7 +24,7 @@
         </div>
         <div>
             <label for="password">Пароль: </label>
-            <input type="password" id="password" name="password ">
+            <input type="password" id="password" name="password">
         </div>
         <div>
             <label for="role">Роль: </label>

@@ -35,4 +35,9 @@ public class UserServiceImpl extends AbstractService implements UserService {
             userDao.update(user);
         }
     }
+
+    @Override
+    public boolean delete(Long userId) {
+        return userDao.delete(userId) == 1;
+    }
 }

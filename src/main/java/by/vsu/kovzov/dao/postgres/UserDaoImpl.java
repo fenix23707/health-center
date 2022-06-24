@@ -120,7 +120,7 @@ public class UserDaoImpl extends AbstractDaoImpl implements UserDao {
         try {
             statement = getConnection().prepareStatement(sql);
             statement.setString(1, user.getLogin());
-            if (user.getPassword().isBlank()) {
+            if (user.getPassword() == null || user.getPassword().isBlank()) {
                 statement.setNull(2, Types.VARCHAR);
             } else {
                 statement.setString(2, user.getPassword());
@@ -128,6 +128,20 @@ public class UserDaoImpl extends AbstractDaoImpl implements UserDao {
             statement.setInt(3, user.getRole().ordinal());
             statement.setLong(4, user.getId());
             statement.executeUpdate();
+        } finally {
+            close(statement);
+        }
+    }
+
+    @Override
+    @SneakyThrows
+    public int delete(Long userId) {
+        String sql = "DELETE FROM users WHERE id = ?";
+        PreparedStatement statement = null;
+        try {
+            statement = getConnection().prepareStatement(sql);
+            statement.setLong(1, userId);
+            return statement.executeUpdate();
         } finally {
             close(statement);
         }
