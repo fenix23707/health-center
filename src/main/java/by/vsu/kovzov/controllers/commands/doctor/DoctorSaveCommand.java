@@ -10,15 +10,12 @@ import com.google.common.primitives.Longs;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.SneakyThrows;
-import org.postgresql.shaded.com.ongres.scram.common.bouncycastle.pbkdf2.Integers;
 
 import java.text.SimpleDateFormat;
 import java.util.Map;
 
 import static com.google.common.base.MoreObjects.firstNonNull;
-import static com.google.common.primitives.Ints.tryParse;
 import static java.lang.Integer.getInteger;
-import static java.lang.Long.getLong;
 
 public class DoctorSaveCommand extends Command {
 

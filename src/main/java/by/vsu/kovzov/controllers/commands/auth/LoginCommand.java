@@ -8,7 +8,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.SneakyThrows;
 
-import java.net.URLEncoder;
 import java.util.Map;
 import java.util.Optional;
 

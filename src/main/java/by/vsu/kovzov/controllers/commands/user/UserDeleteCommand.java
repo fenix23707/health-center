@@ -2,7 +2,6 @@ package by.vsu.kovzov.controllers.commands.user;
 
 import by.vsu.kovzov.controllers.commands.Command;
 import by.vsu.kovzov.controllers.commands.CommandResult;
-import by.vsu.kovzov.services.DoctorService;
 import by.vsu.kovzov.services.UserService;
 import com.google.common.primitives.Longs;
 import jakarta.servlet.http.HttpServletRequest;

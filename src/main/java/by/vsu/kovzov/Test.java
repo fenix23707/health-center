@@ -1,7 +1,5 @@
 package by.vsu.kovzov;
 
-import by.vsu.kovzov.utils.factories.ServiceFactory;
-import by.vsu.kovzov.utils.factories.ServiceFactoryImpl;
 import by.vsu.kovzov.utils.pool.ConnectionPool;
 import lombok.SneakyThrows;
 

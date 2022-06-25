@@ -6,10 +6,8 @@ import by.vsu.kovzov.services.exceptions.ServiceException;
 import by.vsu.kovzov.utils.factories.ComparatorFactory;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.Value;
 import org.apache.http.HttpStatus;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
