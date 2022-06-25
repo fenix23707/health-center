@@ -1,8 +1,7 @@
 package by.vsu.kovzov.dao.postgres;
 
 import by.vsu.kovzov.dao.UserDao;
-import by.vsu.kovzov.models.Config;
-import by.vsu.kovzov.models.SortConfig;
+import by.vsu.kovzov.models.ListConfig;
 import by.vsu.kovzov.models.User;
 import lombok.SneakyThrows;
 
@@ -18,9 +17,9 @@ public class UserDaoImpl extends AbstractDaoImpl implements UserDao {
 
     @Override
     @SneakyThrows
-    public List<User> findAll(Config config) {
+    public List<User> findAll(ListConfig listConfig) {
         String sql = "SELECT id, login, role FROM users";
-        sql = addSort(sql, config.getSortConfig());
+        sql = addSort(sql, listConfig.getSortConfig());
         List<User> users = new ArrayList<>();
         PreparedStatement statement = null;
         ResultSet resultSet = null;

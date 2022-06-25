@@ -59,6 +59,10 @@ public class DoctorServiceImpl extends AbstractService implements DoctorService 
 
     @Override
     public BigDecimal getTotalSalaryBySpecialization(Integer specializationId) {
-        return doctorDao.sumSalaryBySpecialization(specializationId);
+        BigDecimal totalSalary = doctorDao.sumSalaryBySpecialization(specializationId);
+        if (totalSalary == null) {
+            totalSalary = BigDecimal.ZERO;
+        }
+        return totalSalary;
     }
 }

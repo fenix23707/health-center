@@ -14,7 +14,7 @@
             <thead>
             <tr>
                 <th data-column="name">Имя</th>
-                <th>Узкий специалист</th>
+                <th data-column="narrow">Узкий специалист</th>
                 <th data-column="doctorsNumber">Количество врачей</th>
                 <th data-column="wageRate">Ставка заработной платы</th>
                 <th data-column="totalCost">Общие затраты на оплату труда</th>

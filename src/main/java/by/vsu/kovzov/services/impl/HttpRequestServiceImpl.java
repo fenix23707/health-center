@@ -1,6 +1,6 @@
 package by.vsu.kovzov.services.impl;
 
-import by.vsu.kovzov.models.Config;
+import by.vsu.kovzov.models.ListConfig;
 import by.vsu.kovzov.models.SortConfig;
 import by.vsu.kovzov.services.HttpRequestService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -10,15 +10,15 @@ import java.util.Optional;
 
 public class HttpRequestServiceImpl implements HttpRequestService {
     @Override
-    public Config getConfig(HttpServletRequest request) {
-        Config config = new Config();
+    public ListConfig getConfig(HttpServletRequest request) {
+        ListConfig listConfig = new ListConfig();
 
         Optional<SortConfig> sortConfig = getSortConfig(request);
         if (sortConfig.isPresent()) {
-            config.setSortConfig(sortConfig.get());
+            listConfig.setSortConfig(sortConfig.get());
         }
 
-        return config;
+        return listConfig;
     }
 
     private Optional<SortConfig> getSortConfig(HttpServletRequest request) {

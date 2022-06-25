@@ -1,9 +1,9 @@
 package by.vsu.kovzov.services;
 
-import by.vsu.kovzov.models.Config;
+import by.vsu.kovzov.models.ListConfig;
 import jakarta.servlet.http.HttpServletRequest;
 
 public interface HttpRequestService {
 
-    Config getConfig(HttpServletRequest request);
+    ListConfig getConfig(HttpServletRequest request);
 }

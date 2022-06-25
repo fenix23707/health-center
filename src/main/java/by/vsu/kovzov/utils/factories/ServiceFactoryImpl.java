@@ -17,6 +17,7 @@ public class ServiceFactoryImpl implements ServiceFactory{
 
     private Connection connection = null;
     private Transaction transaction = null;
+    private ComparatorFactory comparatorFactory = null;
 
     private UserDao userDao = null;
     private DoctorDao doctorDao = null;
@@ -71,6 +72,7 @@ public class ServiceFactoryImpl implements ServiceFactory{
             SpecializationServiceImpl specializationServiceImpl = new SpecializationServiceImpl();
             specializationService = specializationServiceImpl;
             specializationServiceImpl.setTransaction(getTransaction());
+            specializationServiceImpl.setComparatorFactory(getComparatorFactory());
             specializationServiceImpl.setSpecializationDao(getSpecializationDao());
             specializationServiceImpl.setDoctorService(getDoctorService());
         }
@@ -137,6 +139,14 @@ public class ServiceFactoryImpl implements ServiceFactory{
         }
 
         return specializationDao;
+    }
+
+    protected ComparatorFactory getComparatorFactory() {
+        if (comparatorFactory == null) {
+            ComparatorFactoryImpl comparatorFactoryImpl = new ComparatorFactoryImpl();
+            comparatorFactory = comparatorFactoryImpl;
+        }
+        return comparatorFactory;
     }
 
     protected Transaction getTransaction() {

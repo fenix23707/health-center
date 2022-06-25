@@ -1,12 +1,12 @@
 package by.vsu.kovzov.services;
 
-import by.vsu.kovzov.models.Config;
+import by.vsu.kovzov.models.ListConfig;
 import by.vsu.kovzov.models.User;
 
 import java.util.List;
 
 public interface UserService {
-    List<User> getAll(Config config);
+    List<User> getAll(ListConfig listConfig);
 
     User findById(Long id);
 

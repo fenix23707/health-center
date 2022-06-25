@@ -1,7 +1,7 @@
 package by.vsu.kovzov.services.impl;
 
 import by.vsu.kovzov.dao.UserDao;
-import by.vsu.kovzov.models.Config;
+import by.vsu.kovzov.models.ListConfig;
 import by.vsu.kovzov.models.User;
 import by.vsu.kovzov.services.UserService;
 import by.vsu.kovzov.services.exceptions.ServiceException;
@@ -17,8 +17,8 @@ public class UserServiceImpl extends AbstractService implements UserService {
     private final UserDao userDao;
 
     @Override
-    public List<User> getAll(Config config) {
-        return userDao.findAll(config);
+    public List<User> getAll(ListConfig listConfig) {
+        return userDao.findAll(listConfig);
     }
 
     @Override
