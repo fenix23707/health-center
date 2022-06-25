@@ -3,6 +3,8 @@ package by.vsu.kovzov.dao.postgres;
 import by.vsu.kovzov.models.SortConfig;
 
 import java.sql.Connection;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 import static java.lang.String.format;
 
@@ -21,7 +23,11 @@ public abstract class AbstractDaoImpl {
     protected String addSort(String sql, SortConfig sortConfig) {
         String result = sql;
         if (sortConfig != null) {
-            result += format(" ORDER BY %s %s", sortConfig.getColumn(), sortConfig.getOrder());
+            String order = Arrays.stream(sortConfig.getColumn().split(" "))
+                    .filter(s -> !s.isBlank())
+                    .map(s -> format("%s %s  NULLS LAST", s, sortConfig.getOrder()))
+                    .collect(Collectors.joining(", "));
+            result += " ORDER BY " + order;
         }
         return result;
     }
@@ -29,6 +35,7 @@ public abstract class AbstractDaoImpl {
     protected void close(AutoCloseable closeable) {
         try {
             closeable.close();
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
     }
 }

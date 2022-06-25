@@ -2,6 +2,7 @@ package by.vsu.kovzov.services.impl;
 
 import by.vsu.kovzov.dao.DoctorDao;
 import by.vsu.kovzov.models.Doctor;
+import by.vsu.kovzov.models.ListConfig;
 import by.vsu.kovzov.services.DoctorService;
 import by.vsu.kovzov.services.EmployeeService;
 import by.vsu.kovzov.services.SalaryService;
@@ -21,13 +22,13 @@ public class DoctorServiceImpl extends AbstractService implements DoctorService 
     private EmployeeService employeeService;
 
     @Override
-    public List<Doctor> getAll() {
-        return doctorDao.findAll();
+    public List<Doctor> getAll(ListConfig config) {
+        return doctorDao.findAll(config);
     }
 
     @Override
-    public List<Doctor> getAllBySpecialization(Integer specializationId) {
-        return doctorDao.findAllBySpecialization(specializationId);
+    public List<Doctor> getAllBySpecialization(Integer specializationId, ListConfig config) {
+        return doctorDao.findAllBySpecialization(specializationId, config);
     }
 
     @Override

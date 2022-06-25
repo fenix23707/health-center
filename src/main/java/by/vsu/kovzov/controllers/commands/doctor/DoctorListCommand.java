@@ -3,6 +3,7 @@ package by.vsu.kovzov.controllers.commands.doctor;
 import by.vsu.kovzov.controllers.commands.Command;
 import by.vsu.kovzov.controllers.commands.CommandResult;
 import by.vsu.kovzov.models.Doctor;
+import by.vsu.kovzov.models.ListConfig;
 import by.vsu.kovzov.models.Specialization;
 import by.vsu.kovzov.services.DoctorService;
 import by.vsu.kovzov.services.SpecializationService;
@@ -25,8 +26,9 @@ public class DoctorListCommand extends Command {
         List<Doctor> doctors;
         DoctorService doctorService = getServiceFactory().getDoctorService();
         SpecializationService specializationService = getServiceFactory().getSpecializationService();
+        ListConfig config = getServiceFactory().getHttpRequestService().getConfig(req);
         if (specializationId != null) {
-            doctors = doctorService.getAllBySpecialization(specializationId);
+            doctors = doctorService.getAllBySpecialization(specializationId, config);
             Optional<Specialization> specialization = specializationService.findById(specializationId);
             if (specialization.isEmpty()) {
                 return new CommandResult(
@@ -38,7 +40,7 @@ public class DoctorListCommand extends Command {
 
             req.setAttribute("specialization", specialization.get());
         } else {
-            doctors = doctorService.getAll();
+            doctors = doctorService.getAll(config);
         }
         req.setAttribute("doctors", doctors);
         return null;

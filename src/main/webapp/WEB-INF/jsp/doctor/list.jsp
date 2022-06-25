@@ -13,11 +13,11 @@
         <table>
             <thead>
             <tr>
-                <th>ФИО</th>
-                <th>Дата рождения</th>
-                <th>Дата приёма на работу</th>
-                <th>Заработная плата</th>
-                <th>Номер участка</th>
+                <th data-column="name surname patronymic">ФИО</th>
+                <th data-column="dob">Дата рождения</th>
+                <th data-column="employment_date">Дата приёма на работу</th>
+                <th data-column="salary">Заработная плата</th>
+                <th data-column="branch_id">Номер участка</th>
                 <th ${hidden}>Изменить</th>
                 <th ${hidden}>Удалить</th>
             </tr>

@@ -2,6 +2,7 @@ package by.vsu.kovzov.dao.postgres;
 
 import by.vsu.kovzov.dao.DoctorDao;
 import by.vsu.kovzov.models.Doctor;
+import by.vsu.kovzov.models.ListConfig;
 import by.vsu.kovzov.models.Person;
 import by.vsu.kovzov.models.Specialization;
 import lombok.SneakyThrows;
@@ -16,8 +17,9 @@ public class DoctorDaoImpl extends AbstractDaoImpl implements DoctorDao {
 
     @Override
     @SneakyThrows
-    public List<Doctor> findAll() {
+    public List<Doctor> findAll(ListConfig config) {
         String sql = "SELECT id, name, surname, patronymic, sex, dob, employment_date, salary, specialization_id, branch_id FROM doctors";
+        sql = addSort(sql, config.getSortConfig());
         List<Doctor> doctors = new ArrayList<>();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -48,8 +50,9 @@ public class DoctorDaoImpl extends AbstractDaoImpl implements DoctorDao {
 
     @Override
     @SneakyThrows
-    public List<Doctor> findAllBySpecialization(Integer specializationId) {
+    public List<Doctor> findAllBySpecialization(Integer specializationId, ListConfig config) {
         String sql = "SELECT id, name, surname, patronymic, sex, dob, employment_date, salary, branch_id FROM doctors WHERE specialization_id = ?";
+        sql = addSort(sql, config.getSortConfig());
         List<Doctor> doctors = new ArrayList<>();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
