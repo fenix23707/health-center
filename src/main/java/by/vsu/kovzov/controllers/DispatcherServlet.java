@@ -4,6 +4,7 @@ import by.vsu.kovzov.controllers.commands.Command;
 import by.vsu.kovzov.controllers.commands.CommandFactory;
 import by.vsu.kovzov.controllers.commands.CommandResult;
 import by.vsu.kovzov.services.exceptions.ServiceException;
+import by.vsu.kovzov.services.exceptions.ValidationException;
 import by.vsu.kovzov.utils.factories.ServiceFactory;
 import by.vsu.kovzov.utils.factories.ServiceFactoryImpl;
 import jakarta.servlet.ServletException;
@@ -13,6 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.SneakyThrows;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.Optional;
 
 public class DispatcherServlet extends HttpServlet {
@@ -28,10 +30,12 @@ public class DispatcherServlet extends HttpServlet {
             try (ServiceFactory factory = getServiceFactory()) {
                 command.get().setServiceFactory(factory);
                 result = command.get().execute(req, resp);
-            } catch (ServiceException e) {
+            } catch (ValidationException | ServiceException e) {
+//                String backUrl = req.getHeader("referer");
+//                backUrl = backUrl.substring(backUrl.indexOf(req.getContextPath())).replace(req.getContextPath(), "");
+//                result = new CommandResult(backUrl, CommandResult.Type.REDIRECT, Map.of("message", e.getMessage()));
                 throw e;
             } catch (Exception e) {
-                // TODO: add error handling
                 throw new ServletException(e);
             }
         }

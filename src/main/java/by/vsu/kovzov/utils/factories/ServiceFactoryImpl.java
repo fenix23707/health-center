@@ -9,6 +9,8 @@ import by.vsu.kovzov.dao.postgres.UserDaoImpl;
 import by.vsu.kovzov.services.*;
 import by.vsu.kovzov.services.impl.*;
 import by.vsu.kovzov.utils.pool.ConnectionPool;
+import by.vsu.kovzov.services.ValidateService;
+import by.vsu.kovzov.services.impl.ValidationServiceImpl;
 import lombok.SneakyThrows;
 
 import java.sql.Connection;
@@ -30,6 +32,7 @@ public class ServiceFactoryImpl implements ServiceFactory{
     private SalaryService salaryService = null;
     private EmployeeService employeeService = null;
     private HttpRequestService requestService = null;
+    private ValidateService validateService = null;
 
     @Override
     public UserService getUserService() {
@@ -111,6 +114,14 @@ public class ServiceFactoryImpl implements ServiceFactory{
             requestService = httpRequestServiceImpl;
         }
         return requestService;
+    }
+
+    @Override
+    public ValidateService getValidateService() {
+        if (validateService == null) {
+            validateService = new ValidationServiceImpl();
+        }
+        return validateService;
     }
 
     protected UserDao getUserDao() {
