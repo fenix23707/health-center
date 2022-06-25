@@ -14,4 +14,6 @@ public interface ServiceFactory extends AutoCloseable {
     SalaryService getSalaryService();
 
     EmployeeService getEmployeeService();
+
+    HttpRequestService getHttpRequestService();
 }

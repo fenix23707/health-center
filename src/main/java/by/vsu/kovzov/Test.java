@@ -11,9 +11,7 @@ public class Test {
     public static void main(String[] args) {
         init();
 
-        ServiceFactory serviceFactory = new ServiceFactoryImpl();
-        System.out.println(serviceFactory.getUserService().getAll());
-        serviceFactory.close();
+
 
         destroy();
         System.out.println("destroyed");

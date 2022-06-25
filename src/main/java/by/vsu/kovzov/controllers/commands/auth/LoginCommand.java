@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.SneakyThrows;
 
 import java.net.URLEncoder;
+import java.util.Map;
 import java.util.Optional;
 
 public class LoginCommand extends Command {
@@ -23,12 +24,10 @@ public class LoginCommand extends Command {
             if (user.isPresent()) {
                 HttpSession session = req.getSession();
                 session.setAttribute("user", user.get());
-                return new CommandResult("/index.html", CommandResult.Type.FORWARD);
+                return new CommandResult("/index.html", CommandResult.Type.REDIRECT);
             } else {
-                String message = "incorrect login or password";
-                String url = "/login.html?message="
-                        + URLEncoder.encode(message, "UTF-8");
-                return new CommandResult(url, CommandResult.Type.REDIRECT);
+                return new CommandResult("/login.html", CommandResult.Type.REDIRECT,
+                        Map.of("message", "неверный логин или пароль"));
             }
         } else {
             return null;

@@ -10,6 +10,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="${cssUrl}">
     <title>${title}</title>
 
@@ -59,5 +60,7 @@
     <jsp:doBody/>
 
 </div>
+<c:url var="jsUrl" value="/js/index.js"/>
+<script src="${jsUrl}"></script>
 </body>
 </html>

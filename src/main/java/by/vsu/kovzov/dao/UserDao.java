@@ -1,12 +1,13 @@
 package by.vsu.kovzov.dao;
 
+import by.vsu.kovzov.models.Config;
 import by.vsu.kovzov.models.User;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface UserDao {
-    List<User> findAll();
+    List<User> findAll(Config config);
 
     Optional<User> findByLoginAndPassword(String login, String password);
 

@@ -28,6 +28,7 @@ public class ServiceFactoryImpl implements ServiceFactory{
     private SpecializationService specializationService = null;
     private SalaryService salaryService = null;
     private EmployeeService employeeService = null;
+    private HttpRequestService requestService = null;
 
     @Override
     public UserService getUserService() {
@@ -98,6 +99,15 @@ public class ServiceFactoryImpl implements ServiceFactory{
             employeeServiceImpl.setTransaction(getTransaction());
         }
         return employeeService;
+    }
+
+    @Override
+    public HttpRequestService getHttpRequestService() {
+        if (requestService == null) {
+            HttpRequestServiceImpl httpRequestServiceImpl = new HttpRequestServiceImpl();
+            requestService = httpRequestServiceImpl;
+        }
+        return requestService;
     }
 
     protected UserDao getUserDao() {

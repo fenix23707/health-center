@@ -13,11 +13,11 @@
         <table>
             <thead>
             <tr>
-                <th>Имя</th>
+                <th data-column="name">Имя</th>
                 <th>Узкий специалист</th>
-                <th>Количество врачей</th>
-                <th>Ставка заработной платы</th>
-                <th>Общие затраты на оплату труда</th>
+                <th data-column="doctorsNumber">Количество врачей</th>
+                <th data-column="wageRate">Ставка заработной платы</th>
+                <th data-column="totalCost">Общие затраты на оплату труда</th>
                 <th>Подробнее</th>
                 <th ${hidden}>Изменить</th>
             </tr>

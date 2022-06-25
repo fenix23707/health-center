@@ -9,8 +9,8 @@
         <table>
             <thead>
             <tr>
-                <th>Логин</th>
-                <th>Роль</th>
+                <th data-column="login">Логин</th>
+                <th data-column="role">Роль</th>
                 <th>Изменить</th>
                 <th>Удалить</th>
             </tr>
