@@ -18,4 +18,6 @@ public interface UserDao {
     void update(User user);
 
     int delete(Long userId);
+
+    Optional<User> findByLogin(String login);
 }

@@ -3,6 +3,7 @@ package by.vsu.kovzov.controllers;
 import by.vsu.kovzov.controllers.commands.Command;
 import by.vsu.kovzov.controllers.commands.CommandFactory;
 import by.vsu.kovzov.controllers.commands.CommandResult;
+import by.vsu.kovzov.services.exceptions.ServiceException;
 import by.vsu.kovzov.utils.factories.ServiceFactory;
 import by.vsu.kovzov.utils.factories.ServiceFactoryImpl;
 import jakarta.servlet.ServletException;
@@ -24,9 +25,11 @@ public class DispatcherServlet extends HttpServlet {
         Optional<Command> command = CommandFactory.getCommand(url);
         CommandResult result = null;
         if (command.isPresent()) {
-            try (ServiceFactory factory = getServiceFactory()){
+            try (ServiceFactory factory = getServiceFactory()) {
                 command.get().setServiceFactory(factory);
                 result = command.get().execute(req, resp);
+            } catch (ServiceException e) {
+                throw e;
             } catch (Exception e) {
                 // TODO: add error handling
                 throw new ServletException(e);

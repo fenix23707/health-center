@@ -78,6 +78,19 @@
         <listener-class>by.vsu.kovzov.controllers.ApplicationListener</listener-class>
     </listener>
 
+    <error-page>
+        <exception-type>jakarta.servlet.ServletException</exception-type>
+        <location>/WEB-INF/jsp/error.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/WEB-INF/jsp/error.jsp</location>
+    </error-page>
+    <error-page>
+        <exception-type>by.vsu.kovzov.services.exceptions.ServiceException</exception-type>
+        <location>/WEB-INF/jsp/serviceError.jsp</location>
+    </error-page>
+
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>

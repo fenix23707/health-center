@@ -93,6 +93,31 @@ public class UserDaoImpl extends AbstractDaoImpl implements UserDao {
 
     @Override
     @SneakyThrows
+    public Optional<User> findByLogin(String login) {
+        String sql = "SELECT id, role FROM users WHERE login = ? ";
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        Optional<User> optionalUser = Optional.empty();
+        try {
+            statement = getConnection().prepareStatement(sql);
+            statement.setString(1, login);
+            resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                User user = new User();
+                user.setRole(User.Role.values()[resultSet.getInt("role")]);
+                user.setId(resultSet.getLong("id"));
+                user.setLogin(login);
+                optionalUser = Optional.of(user);
+            }
+        } finally {
+            close(resultSet);
+            close(statement);
+        }
+        return optionalUser;
+    }
+
+    @Override
+    @SneakyThrows
     public Long create(User user) {
         String sql = "INSERT INTO users (login, password, role) VALUES (?,?, ?)";
         PreparedStatement statement = null;

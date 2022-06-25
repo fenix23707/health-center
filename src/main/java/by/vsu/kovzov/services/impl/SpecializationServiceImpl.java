@@ -53,6 +53,7 @@ public class SpecializationServiceImpl extends AbstractService implements Specia
         if (specialization.getId() == null) {
             specializationDao.create(specialization);
         } else {
+            checkCanChangeNarrow(specialization.getId());
             specializationDao.update(specialization);
         }
     }
@@ -61,6 +62,12 @@ public class SpecializationServiceImpl extends AbstractService implements Specia
     public boolean delete(Integer specializationId) {
         checkCanDelete(specializationId);
         return specializationDao.delete(specializationId) == 1;
+    }
+
+    private void checkCanChangeNarrow(Integer specializationId) {
+        if (doctorService.getDoctorsNumberBySpecialization(specializationId) > 0) {
+            throw new ServiceException(HttpStatus.SC_CONFLICT, "Существуют врачи с этой специальностью");
+        }
     }
 
     private void checkCanDelete(Integer specializationId) {

@@ -3,10 +3,14 @@ package by.vsu.kovzov.services.impl;
 import by.vsu.kovzov.dao.DoctorDao;
 import by.vsu.kovzov.models.Doctor;
 import by.vsu.kovzov.models.ListConfig;
+import by.vsu.kovzov.models.Specialization;
 import by.vsu.kovzov.services.DoctorService;
 import by.vsu.kovzov.services.EmployeeService;
 import by.vsu.kovzov.services.SalaryService;
+import by.vsu.kovzov.services.SpecializationService;
+import by.vsu.kovzov.services.exceptions.ServiceException;
 import lombok.Setter;
+import org.apache.http.HttpStatus;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -20,6 +24,8 @@ public class DoctorServiceImpl extends AbstractService implements DoctorService 
     private SalaryService salaryService;
 
     private EmployeeService employeeService;
+
+    private SpecializationService specializationService;
 
     @Override
     public List<Doctor> getAll(ListConfig config) {
@@ -39,6 +45,8 @@ public class DoctorServiceImpl extends AbstractService implements DoctorService 
     @Override
     public void save(Doctor doctor) {
         employeeService.checkEmploymentAge(doctor);
+        checkBranchNo(doctor);
+
         doctor.setSalary(salaryService.calculateSalary(doctor));
 
         if (doctor.getId() == null) {
@@ -65,5 +73,18 @@ public class DoctorServiceImpl extends AbstractService implements DoctorService 
             totalSalary = BigDecimal.ZERO;
         }
         return totalSalary;
+    }
+
+    private void checkBranchNo(Doctor doctor) {
+        Specialization specialization = specializationService
+                .findById(doctor.getSpecialization().getId())
+                .orElseThrow(() -> new ServiceException(HttpStatus.SC_NOT_FOUND,
+                        "Не получается найти специальность с id = " + doctor.getSpecialization().getId())
+                );
+
+        if (!specialization.isNarrow() && doctor.getBranchNo() == null) {
+            throw new ServiceException(HttpStatus.SC_BAD_REQUEST,
+                    "Врач, которые не является узким специалистом, обязательно должен иметь номер участка");
+        }
     }
 }
