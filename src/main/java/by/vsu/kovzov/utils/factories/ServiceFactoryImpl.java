@@ -5,6 +5,7 @@ import by.vsu.kovzov.dao.SpecializationDao;
 import by.vsu.kovzov.dao.UserDao;
 import by.vsu.kovzov.dao.postgres.DoctorDaoImpl;
 import by.vsu.kovzov.dao.postgres.SpecializationDaoImpl;
+import by.vsu.kovzov.dao.postgres.SpecializationIdentityMap;
 import by.vsu.kovzov.dao.postgres.UserDaoImpl;
 import by.vsu.kovzov.services.*;
 import by.vsu.kovzov.services.impl.*;
@@ -147,7 +148,7 @@ public class ServiceFactoryImpl implements ServiceFactory{
         if (specializationDao == null) {
             SpecializationDaoImpl specializationDaoImpl = new SpecializationDaoImpl();
             specializationDaoImpl.setConnection(getConnection());
-            specializationDao = specializationDaoImpl;
+            specializationDao = new SpecializationIdentityMap(specializationDaoImpl);
         }
 
         return specializationDao;
