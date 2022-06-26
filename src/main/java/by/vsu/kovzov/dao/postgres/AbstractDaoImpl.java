@@ -1,6 +1,7 @@
 package by.vsu.kovzov.dao.postgres;
 
 import by.vsu.kovzov.models.SortConfig;
+import by.vsu.kovzov.utils.ConnectionStorage;
 
 import java.sql.Connection;
 import java.util.Arrays;
@@ -10,14 +11,14 @@ import static java.lang.String.format;
 
 public abstract class AbstractDaoImpl {
 
-    private Connection connection;
+//    private Connection connection;
 
     protected Connection getConnection() {
-        return this.connection;
+        return ConnectionStorage.INSTANCE.getConnection();
     }
 
     public void setConnection(Connection connection) {
-        this.connection = connection;
+//        this.connection = connection;
     }
 
     protected String addSort(String sql, SortConfig sortConfig) {

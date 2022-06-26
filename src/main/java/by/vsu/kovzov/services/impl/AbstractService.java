@@ -1,7 +1,6 @@
 package by.vsu.kovzov.services.impl;
 
 import by.vsu.kovzov.models.SortConfig;
-import by.vsu.kovzov.services.Transaction;
 import by.vsu.kovzov.services.exceptions.ServiceException;
 import by.vsu.kovzov.utils.factories.ComparatorFactory;
 import lombok.Getter;
@@ -15,8 +14,6 @@ import java.util.List;
 @Getter
 @Setter
 public class AbstractService {
-
-    private Transaction transaction;
 
     private ComparatorFactory comparatorFactory;
 

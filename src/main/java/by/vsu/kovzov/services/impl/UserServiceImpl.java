@@ -5,6 +5,7 @@ import by.vsu.kovzov.models.ListConfig;
 import by.vsu.kovzov.models.User;
 import by.vsu.kovzov.services.UserService;
 import by.vsu.kovzov.services.exceptions.ServiceException;
+import by.vsu.kovzov.services.transaction.Transaction;
 import lombok.AllArgsConstructor;
 import org.apache.http.HttpStatus;
 
@@ -17,6 +18,7 @@ public class UserServiceImpl extends AbstractService implements UserService {
     private final UserDao userDao;
 
     @Override
+    @Transaction
     public List<User> getAll(ListConfig listConfig) {
         return userDao.findAll(listConfig);
     }

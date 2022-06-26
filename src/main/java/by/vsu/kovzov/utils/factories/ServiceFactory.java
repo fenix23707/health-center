@@ -3,7 +3,7 @@ package by.vsu.kovzov.utils.factories;
 import by.vsu.kovzov.services.*;
 import by.vsu.kovzov.services.ValidateService;
 
-public interface ServiceFactory extends AutoCloseable {
+public interface ServiceFactory {
     UserService getUserService();
 
     AuthService getAuthService();

@@ -7,16 +7,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class SpecializationIdentityMap implements SpecializationDao {
 
-    private final Map<Integer, Specialization> hash;
+    private static final Map<Integer, Specialization> hash = new ConcurrentHashMap<>();
 
     private SpecializationDao specializationDao;
 
     public SpecializationIdentityMap(SpecializationDao specializationDao) {
         this.specializationDao = specializationDao;
-        hash = new HashMap<>();
     }
 
     @Override

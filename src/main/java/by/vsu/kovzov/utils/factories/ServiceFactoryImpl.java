@@ -19,7 +19,6 @@ import java.sql.Connection;
 public class ServiceFactoryImpl implements ServiceFactory{
 
     private Connection connection = null;
-    private Transaction transaction = null;
     private ComparatorFactory comparatorFactory = null;
 
     private UserDao userDao = null;
@@ -39,7 +38,6 @@ public class ServiceFactoryImpl implements ServiceFactory{
     public UserService getUserService() {
         if (userService == null) {
             UserServiceImpl userServiceImpl = new UserServiceImpl(getUserDao());
-            userServiceImpl.setTransaction(getTransaction());
             userService = userServiceImpl;
         }
 
@@ -50,7 +48,6 @@ public class ServiceFactoryImpl implements ServiceFactory{
     public AuthService getAuthService() {
         if (authService == null) {
             AuthServiceImpl authServiceImpl = new AuthServiceImpl(getUserDao());
-            authServiceImpl.setTransaction(getTransaction());
             authService = authServiceImpl;
         }
 
@@ -62,7 +59,6 @@ public class ServiceFactoryImpl implements ServiceFactory{
         if (doctorService == null) {
             DoctorServiceImpl doctorServiceImpl = new DoctorServiceImpl();
             doctorService = doctorServiceImpl;
-            doctorServiceImpl.setTransaction(getTransaction());
             doctorServiceImpl.setDoctorDao(getDoctorDao());
             doctorServiceImpl.setSalaryService(getSalaryService());
             doctorServiceImpl.setEmployeeService(getEmployeeService());
@@ -76,7 +72,6 @@ public class ServiceFactoryImpl implements ServiceFactory{
         if (specializationService == null) {
             SpecializationServiceImpl specializationServiceImpl = new SpecializationServiceImpl();
             specializationService = specializationServiceImpl;
-            specializationServiceImpl.setTransaction(getTransaction());
             specializationServiceImpl.setComparatorFactory(getComparatorFactory());
             specializationServiceImpl.setSpecializationDao(getSpecializationDao());
             specializationServiceImpl.setDoctorService(getDoctorService());
@@ -90,7 +85,6 @@ public class ServiceFactoryImpl implements ServiceFactory{
         if (salaryService == null) {
             SalaryServiceImpl salaryServiceImpl = new SalaryServiceImpl();
             salaryService = salaryServiceImpl;
-            salaryServiceImpl.setTransaction(getTransaction());
             salaryServiceImpl.setSpecializationService(getSpecializationService());
             salaryServiceImpl.setEmployeeService(getEmployeeService());
         }
@@ -103,7 +97,6 @@ public class ServiceFactoryImpl implements ServiceFactory{
         if (employeeService == null) {
             EmployeeServiceImpl employeeServiceImpl = new EmployeeServiceImpl();
             employeeService = employeeServiceImpl;
-            employeeServiceImpl.setTransaction(getTransaction());
         }
         return employeeService;
     }
@@ -128,7 +121,6 @@ public class ServiceFactoryImpl implements ServiceFactory{
     protected UserDao getUserDao() {
         if (userDao == null) {
             UserDaoImpl userDaoImpl = new UserDaoImpl();
-            userDaoImpl.setConnection(getConnection());
             userDao = userDaoImpl;
         }
 
@@ -138,7 +130,6 @@ public class ServiceFactoryImpl implements ServiceFactory{
     protected DoctorDao getDoctorDao() {
         if (doctorDao == null) {
             DoctorDaoImpl doctorDaoImpl = new DoctorDaoImpl();
-            doctorDaoImpl.setConnection(getConnection());
             doctorDao = doctorDaoImpl;
         }
         return doctorDao;
@@ -147,7 +138,6 @@ public class ServiceFactoryImpl implements ServiceFactory{
     protected SpecializationDao getSpecializationDao() {
         if (specializationDao == null) {
             SpecializationDaoImpl specializationDaoImpl = new SpecializationDaoImpl();
-            specializationDaoImpl.setConnection(getConnection());
             specializationDao = new SpecializationIdentityMap(specializationDaoImpl);
         }
 
@@ -160,29 +150,5 @@ public class ServiceFactoryImpl implements ServiceFactory{
             comparatorFactory = comparatorFactoryImpl;
         }
         return comparatorFactory;
-    }
-
-    protected Transaction getTransaction() {
-        if (transaction == null) {
-            transaction = new TransactionImpl(getConnection());
-        }
-
-        return transaction;
-    }
-
-    @SneakyThrows
-    protected Connection getConnection() {
-        if (connection == null) {
-            connection = ConnectionPool.getInstance().getConnection();
-        }
-
-        return connection;
-    }
-
-    @Override
-    public void close() throws Exception {
-        try {
-            this.connection.close();
-        } catch (Exception e) {}
     }
 }

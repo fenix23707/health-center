@@ -7,6 +7,7 @@ import by.vsu.kovzov.models.Specialization;
 import by.vsu.kovzov.services.DoctorService;
 import by.vsu.kovzov.services.SpecializationService;
 import by.vsu.kovzov.services.exceptions.ServiceException;
+import by.vsu.kovzov.services.transaction.Transaction;
 import lombok.Setter;
 import org.apache.http.HttpStatus;
 
@@ -23,6 +24,7 @@ public class SpecializationServiceImpl extends AbstractService implements Specia
     private DoctorService doctorService;
 
     @Override
+    @Transaction
     public List<SpecializationDto> getAll(ListConfig config) {
         List<SpecializationDto> specializations = specializationDao.findAll().stream()
                 .map(specialization -> SpecializationDto.builder()

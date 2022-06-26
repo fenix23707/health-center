@@ -5,8 +5,11 @@ import by.vsu.kovzov.controllers.commands.CommandFactory;
 import by.vsu.kovzov.controllers.commands.CommandResult;
 import by.vsu.kovzov.services.exceptions.ServiceException;
 import by.vsu.kovzov.services.exceptions.ValidationException;
+import by.vsu.kovzov.services.transaction.ServiceFactoryTransactionDecorator;
+import by.vsu.kovzov.utils.ConnectionStorage;
 import by.vsu.kovzov.utils.factories.ServiceFactory;
 import by.vsu.kovzov.utils.factories.ServiceFactoryImpl;
+import by.vsu.kovzov.utils.pool.ConnectionPool;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,11 +17,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.SneakyThrows;
 
 import java.io.IOException;
-import java.util.Map;
 import java.util.Optional;
 
 public class DispatcherServlet extends HttpServlet {
-
+    private ServiceFactory serviceFactory = new ServiceFactoryTransactionDecorator(new ServiceFactoryImpl());
 
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException {
         String context = req.getContextPath();
@@ -27,13 +29,11 @@ public class DispatcherServlet extends HttpServlet {
         Optional<Command> command = CommandFactory.getCommand(url);
         CommandResult result = null;
         if (command.isPresent()) {
-            try (ServiceFactory factory = getServiceFactory()) {
-                command.get().setServiceFactory(factory);
+            try (ConnectionStorage storage = ConnectionStorage.INSTANCE) {
+                storage.setConnection(ConnectionPool.getInstance().getConnection());
+                command.get().setServiceFactory(getServiceFactory());
                 result = command.get().execute(req, resp);
             } catch (ValidationException | ServiceException e) {
-//                String backUrl = req.getHeader("referer");
-//                backUrl = backUrl.substring(backUrl.indexOf(req.getContextPath())).replace(req.getContextPath(), "");
-//                result = new CommandResult(backUrl, CommandResult.Type.REDIRECT, Map.of("message", e.getMessage()));
                 throw e;
             } catch (Exception e) {
                 throw new ServletException(e);
@@ -77,7 +77,7 @@ public class DispatcherServlet extends HttpServlet {
     }
 
     private ServiceFactory getServiceFactory() {
-        return new ServiceFactoryImpl();
+        return serviceFactory;
     }
 
     @Override
