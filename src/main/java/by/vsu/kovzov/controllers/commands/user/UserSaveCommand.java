@@ -24,7 +24,7 @@ public class UserSaveCommand extends Command {
         User user = new User();
         user.setId(validate.getLong("id", req));
         user.setLogin(validate.getString("login", req, Validator.REQUIRED));
-        user.setPassword(validate.getString("password", req, Validator.REQUIRED));
+        user.setPassword(validate.getString("password", req));
         user.setRole(User.Role.valueOf(req.getParameter("role")));
         return user;
     }

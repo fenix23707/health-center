@@ -75,11 +75,15 @@ public class TransactionHandler implements InvocationHandler {
         }
     }
 
+    @SneakyThrows
     private Object uncheckedInvoke(Method method, Object[] args) {
         try {
             return method.invoke(target, args);
         } catch (InvocationTargetException | IllegalAccessException e) {
-            throw new TransactionException("Could not invoke method " + method.getName(), e);
+            System.err.println("Could not invoke method " + method.getName());
+            throw e.getCause();
+
+//            throw new TransactionException("Could not invoke method " + method.getName(), e);
         }
     }
 

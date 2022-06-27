@@ -32,7 +32,7 @@ public class UserServiceImpl extends AbstractService implements UserService {
 
     @Override
     public void save(User user) {
-        checkUniqueLogin(user.getLogin());
+        checkUniqueLogin(user);
         if (user.getId() == null) {
             userDao.create(user);
         } else {
@@ -45,10 +45,10 @@ public class UserServiceImpl extends AbstractService implements UserService {
         return userDao.delete(userId) == 1;
     }
 
-    private void checkUniqueLogin(String login) {
-        Optional<User> optional = userDao.findByLogin(login);
-        if (optional.isPresent()) {
-            throw new ServiceException(HttpStatus.SC_CONFLICT, "user with login = " + login + " already exist");
+    private void checkUniqueLogin(User user) {
+        Optional<User> optional = userDao.findByLogin(user.getLogin());
+        if (optional.isPresent() && !optional.get().getId().equals(user.getId())) {
+            throw new ServiceException(HttpStatus.SC_CONFLICT, "user with login = " + user.getLogin() + " already exist");
         }
     }
 }

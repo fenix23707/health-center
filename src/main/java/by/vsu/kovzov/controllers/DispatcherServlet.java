@@ -4,6 +4,7 @@ import by.vsu.kovzov.controllers.commands.Command;
 import by.vsu.kovzov.controllers.commands.CommandFactory;
 import by.vsu.kovzov.controllers.commands.CommandResult;
 import by.vsu.kovzov.services.exceptions.ServiceException;
+import by.vsu.kovzov.services.exceptions.TransactionException;
 import by.vsu.kovzov.services.exceptions.ValidationException;
 import by.vsu.kovzov.services.transaction.ServiceFactoryTransactionDecorator;
 import by.vsu.kovzov.utils.ConnectionStorage;
@@ -33,7 +34,7 @@ public class DispatcherServlet extends HttpServlet {
                 storage.setConnection(ConnectionPool.getInstance().getConnection());
                 command.get().setServiceFactory(getServiceFactory());
                 result = command.get().execute(req, resp);
-            } catch (ValidationException | ServiceException e) {
+            } catch (ValidationException | ServiceException | TransactionException e) {
                 throw e;
             } catch (Exception e) {
                 throw new ServletException(e);

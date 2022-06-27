@@ -94,6 +94,10 @@
         <exception-type>by.vsu.kovzov.services.exceptions.ValidationException</exception-type>
         <location>/WEB-INF/jsp/serviceError.jsp</location>
     </error-page>
+    <error-page>
+        <exception-type>by.vsu.kovzov.services.exceptions.TransactionException</exception-type>
+        <location>/WEB-INF/jsp/serviceError.jsp</location>
+    </error-page>
 
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
